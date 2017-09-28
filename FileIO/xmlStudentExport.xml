@@ -1,0 +1,2 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Student><ID name="ID">1</ID><Name name="Name">MingYang Liu</Name><CIN name="CIN">30470619</CIN><Enrolled name="Enrolled">True</Enrolled><SerialNumber name="SerialNumber">1234567890</SerialNumber><Major name="Major">Computer Science</Major><YearAttend name="YearAttend">2015</YearAttend></Student>
