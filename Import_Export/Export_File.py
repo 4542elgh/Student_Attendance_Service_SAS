@@ -35,6 +35,6 @@ class exportCSV(Export_Abstract.Export_Abstract):
 class exportJSON(Export_Abstract.Export_Abstract):
     def exportToFile(self,idNum,stuName,cin,enrolled,serialNumber,major,yearAttend):
         data={"ID":idNum,"Student Name":stuName,"CIN":cin,"Enrolled":enrolled,"Serial Number":serialNumber,"Major":major,"Year Attend":yearAttend}
-        with open('../FileIO/student.json', 'w') as outfile:
+        with open('../FileIO/student2.json', 'w') as outfile:
             json.dump(data, outfile)
     

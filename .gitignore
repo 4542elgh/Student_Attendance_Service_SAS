@@ -6,3 +6,4 @@ Import_Export/Export_Abstract.pyc
 Import_Export/Export_File.pyc
 Import_Export/Import_Abstract.pyc
 Import_Export/__pycache__/**
+.idea/*
