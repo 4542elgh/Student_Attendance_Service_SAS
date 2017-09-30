@@ -8,3 +8,6 @@ Import_Export/Export_File.pyc
 Import_Export/Import_Abstract.pyc
 Import_Export/__pycache__/**
 .idea/*
+.pydevproject
+.project
+**/.DS_Store
