@@ -20,12 +20,12 @@ class exportXML(Export_Abstract.Export_Abstract):
         ET.SubElement(doc, "YearAttend", name="YearAttend").text = yearAttend
         
         tree = ET.ElementTree(doc) #set your root to your file io
-        tree.write("../FileIO/xmlStudentExport.xml",encoding="utf-8",xml_declaration=True) #this filename should contain classroom info and section number
+        tree.write("../FileIO/Student_Roll_Sheet.xml",encoding="utf-8",xml_declaration=True) #this filename should contain classroom info and section number
         #this write method also generate xml head  
     
 class exportCSV(Export_Abstract.Export_Abstract):
-    def exportToFile(self,idNum,stuName,cin,enrolled,serialNumber,major,yearAttend):
-        with open("../FileIO/csvOutput.csv","w") as csv_Output:
+    def exportToFile(self,idNum,stuName,cin,enrolled,serialNumber,major,yearAttend): #inheret from parent class
+        with open("../FileIO/csvOutput.csv","w") as csv_Output: 
             writer = csv.writer(csv_Output)
             Stu = Student(idNum,stuName,cin,enrolled,serialNumber,major,yearAttend)
             studentArg=Stu.toList()
@@ -35,6 +35,6 @@ class exportCSV(Export_Abstract.Export_Abstract):
 class exportJSON(Export_Abstract.Export_Abstract):
     def exportToFile(self,idNum,stuName,cin,enrolled,serialNumber,major,yearAttend):
         data={"ID":idNum,"Student Name":stuName,"CIN":cin,"Enrolled":enrolled,"Serial Number":serialNumber,"Major":major,"Year Attend":yearAttend}
-        with open('../FileIO/student2.json', 'w') as outfile:
-            json.dump(data, outfile)
+        with open('../FileIO/student2.json', 'w') as json_Output:
+            json.dump(data, json_Output)
     

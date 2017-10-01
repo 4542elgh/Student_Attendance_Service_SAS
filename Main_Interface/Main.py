@@ -1,3 +1,4 @@
-from Import_Export import Export_File
+from Import_Export import Import_File
+
 class Main():
-    CSV=Export_File.exportCSV().exportToFile()
+    XML=Import_File.importXML().toList()
