@@ -1,2 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Student><SerialNumber name="Serial">3</SerialNumber><FirstName name="FirstName">MIngyang</FirstName><LastName name="LastName">Liu</LastName><CIN name="CIN">304706199</CIN></Student>
+<Data>
+    <SerialNumber name="Serial">3
+        <FirstName name="FirstName">MIngyang</FirstName>
+        <LastName name="LastName">Liu</LastName>
+        <CIN name="CIN">304706199</CIN>
+    </SerialNumber>
+</Data>

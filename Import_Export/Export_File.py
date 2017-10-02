@@ -8,11 +8,12 @@ import json
 
 class exportXML(Export_Abstract.Export_Abstract):
     def exportToFile(self,StudentList):
-        doc=ET.Element("Student") #within doc you can have child as code below, put student id as this head
-        ET.SubElement(doc, "SerialNumber", name="Serial").text = StudentList[0]
-        ET.SubElement(doc, "FirstName", name="FirstName").text = StudentList[1]
-        ET.SubElement(doc, "LastName", name="LastName").text = StudentList[2]
-        ET.SubElement(doc, "CIN", name="CIN").text = StudentList[3]
+        doc=ET.Element("Data") #within doc you can have child as code below, put student id as this head
+        head=ET.SubElement(doc, "SerialNumber", name="Serial")
+        head.text=StudentList[0]
+        ET.SubElement(head, "FirstName", name="FirstName").text = StudentList[1]
+        ET.SubElement(head, "LastName", name="LastName").text = StudentList[2]
+        ET.SubElement(head, "CIN", name="CIN").text = StudentList[3]
         
         tree = ET.ElementTree(doc) #set your root to your file io
         tree.write("../FileIO/Student_Roll_Sheet.xml",encoding="utf-8",xml_declaration=True) #this filename should contain classroom info and section number
