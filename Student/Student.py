@@ -31,3 +31,7 @@ class Student:
 
     def toList(self):
         return [self.serial , self.firstName , self.lastName , self.cin]
+
+    def toDict(self):
+        return {self.serial , self.firstName , self.lastName , self.cin}
+
