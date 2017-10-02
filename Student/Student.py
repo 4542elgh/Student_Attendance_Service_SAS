@@ -1,54 +1,33 @@
 class Student:
-    def __init__(self,idNum,name,cin,enrolled,serialNumber,major,yearAttend):
-        self.idNum=idNum;
-        self.name=name;
-        self.cin=cin;
-        self.enrolled=enrolled;
-        self.serialNumber=serialNumber;
-        self.major=major;
-        self.yearAttend=yearAttend;
+    def __init__(self,serial,firstName,lastName,cin):
+        self.serial=serial;
+        self.firstName=firstName
+        self.lastName=lastName
+        self.cin=cin
    
-    def getID(self):
-        return self.idNum;
+    def getSerial(self):
+        return self.serial;
     
-    def getName(self):
-        return self.name;
+    def getFirstName(self):
+        return self.firstName;
     
+    def getLastName(self):
+        return self.lastName;
+
     def getCIN(self):
-        return self.cin;
-    
-    def getEnrolled(self):
-        return self.enrolled;
-    
-    def getSerialNumber(self):
-        return self.serialNumber;
-    
-    def getMajor(self):
-        return self.major;
-    
-    def getYearAttend(self):
-        return self.yearAttend;
-    
-    def setID(self,idNum):
-        self.idNum=idNum;
-    
-    def setName(self,name):
-        self.name=name;
-    
+        return self.cin
+
+    def setSerial(self,serial):
+        self.serial=serial
+
+    def setFirstName(self,firstName):
+        self.firstName=firstName
+
+    def setLastName(self,lastName):
+        self.lastName=lastName
+
     def setCIN(self,cin):
-        self.cin=cin;
-    
-    def setEnrolled(self,enrolled):
-        self.enrolled=enrolled;
-    
-    def setSerialNumber(self,serialNumber):
-        self.serialNumber=serialNumber;
-    
-    def setMajor(self,major):
-        self.major=major;
-    
-    def setYearAttend(self,year):
-        self.yearAttend=year;
-        
+        self.cin=cin
+
     def toList(self):
-        return [self.idNum , self.name , self.cin , self.enrolled , self.serialNumber , self.major , self.yearAttend]
+        return [self.serial , self.firstName , self.lastName , self.cin]
