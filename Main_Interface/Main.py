@@ -1,5 +1,6 @@
-from Import_Export import Export_File
+from Import_Export import Import_File
 
-class Main():
-    xml = Export_File.exportXML.exportToFile(object,["3","MIngyang","Liu","304706199"])
-
+class Main(): #do every entry in list of string, export will handle the datatype
+    xml=Import_File.importJSON.toList(object)
+    for element in xml:
+        print(element)

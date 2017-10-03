@@ -1,1 +1,12 @@
-["3", "MIngyang", "Liu", "304706199"]
+{
+  "1": {
+    "FirstName": "Evan",
+    "LastName": "Liu",
+    "CIN": "30417199"
+  },
+  "3": {
+    "FirstName": "Sherry",
+    "LastName": "Liu",
+    "CIN": "2039812411"
+  }
+}
