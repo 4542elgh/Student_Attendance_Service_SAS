@@ -10,15 +10,15 @@ class exportXML(Export_Abstract.Export_Abstract):
     def exportToFile(self,StudentList):
         doc=ET.Element("Data") #within doc you can have child as code below, put student id as this head
 
-        Alias=["","FirstName","LastName","CIN"] #XML Tag alias
+        Alias=["ID","FirstName","LastName","CIN"] #XML Tag alias
         counter=0 #getting the Serial ID since it is the first attribute in matrix list
         for element in StudentList:
-            temp = ET.SubElement(doc,"SerialNumber",SerialID=StudentList[counter][0])
+            temp = ET.SubElement(doc,"Student",SerialID=StudentList[counter][0])
             innerCounter=0 #inner counter for all the other element except ID
             for subelement in element:
-                if innerCounter==0: #skip the ID attribute
-                    innerCounter += 1
-                    continue
+                # if innerCounter==0: #skip the ID attribute
+                #     innerCounter += 1
+                #     continue
                 ET.SubElement(temp,Alias[innerCounter]).text=subelement #add the attribute to tree
                 innerCounter+=1
             counter+=1
