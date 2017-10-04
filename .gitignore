@@ -11,4 +11,8 @@ Import_Export/__pycache__/**
 .pydevproject
 .project
 **/.DS_Store
+<<<<<<< HEAD
 /.metadata/
+=======
+*.pyc
+>>>>>>> Password_Hashing
