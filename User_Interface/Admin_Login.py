@@ -1,18 +1,19 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QLineEdit
+from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QLineEdit, QPushButton
 from PyQt5.QtGui import QIcon, QPixmap
-from PyQt5.QtCore import QUrl
+from PyQt5.QtCore import QUrl, pyqtSlot
 
 
-class App(QMainWindow):
+class AdminLogin(QMainWindow):
     def __init__(self):
         super().__init__()
         self.title = 'Administrator Login'
         self.left = 50
         self.top = 50
         self.width = 300
-        self.height = 475
+        self.height = 480
         self.initUI()
+        self.w = None
 
     def initUI(self):
         self.setWindowTitle(self.title)
@@ -36,15 +37,19 @@ class App(QMainWindow):
         textbox_password.resize(250, 20)
         textbox_password.move(25, 385)
 
+        login_button = QPushButton('Login', self)
+        login_button.setToolTip('Login')
+        login_button.move(175, 420)
+        login_button.clicked.connect(self.on_login_button_clicked)
+
         alternate_login = QLabel('Alternate Login', self)
         alternate_login.setText('''<a href='smileman.gif'>Alternate Login</a>''')
         alternate_login.setOpenExternalLinks(True)
-        alternate_login.move(200, 420)
-
-        self.show()
+        alternate_login.move(200, 450)
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = App()
+    admin = AdminLogin()
+    admin.show()
     sys.exit(app.exec_())
