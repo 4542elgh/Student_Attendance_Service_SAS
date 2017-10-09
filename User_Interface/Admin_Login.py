@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QLineEdi
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import QUrl, pyqtSlot
 from Load_Roster import LoadRoster
-
+from Hashing_PBKDF2 import PBKDF2_Algorithm
 
 class AdminLogin(QMainWindow):
     def __init__(self, parent=None):
@@ -14,7 +14,8 @@ class AdminLogin(QMainWindow):
         self.top = 50
         self.width = 300
         self.height = 480
-
+        self.hash=PBKDF2_Algorithm.PBKDF2_Algorithm
+        self.hash.generate_Hash(self,'admin','000000')
         self.init_ui()
 
         self.newWindow = LoadRoster(self)
@@ -31,15 +32,16 @@ class AdminLogin(QMainWindow):
 
         label_name = QLabel('Name:', self)
         label_name.move(25, 300)
-        textbox_name = QLineEdit(self)
-        textbox_name.resize(250, 20)
-        textbox_name.move(25, 330)
+        self.textbox_name = QLineEdit(self)
+        self.textbox_name.resize(250, 20)
+        self.textbox_name.move(25, 330)
 
         label_password = QLabel('Password:', self)
         label_password.move(25, 355)
-        textbox_password = QLineEdit(self)
-        textbox_password.resize(250, 20)
-        textbox_password.move(25, 385)
+        self.textbox_password = QLineEdit(self)
+        self.textbox_password.resize(250, 20)
+        self.textbox_password.move(25, 385)
+        self.textbox_password.setEchoMode(QLineEdit.Password)
 
         login_button = QPushButton('Login', self)
         login_button.setToolTip('Login')
@@ -55,6 +57,7 @@ class AdminLogin(QMainWindow):
 
     @pyqtSlot()
     def open_window(self):
+        print(self.hash.check_Password(self,self.textbox_name.text(),self.textbox_password.text()))
         admin.close()
         self.newWindow.show()
 
