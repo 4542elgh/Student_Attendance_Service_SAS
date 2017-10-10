@@ -24,6 +24,12 @@ class AdminLogin(QMainWindow):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
 
+        self.label_login_error = QLabel("login error,\ncheck your credentials", self)
+        self.label_login_error.setStyleSheet("color:red")
+        self.label_login_error.resize(300,40)
+        self.label_login_error.move(40, 415)
+        self.label_login_error.hide()
+
         label_logo = QLabel(self)
         pixmap_logo = QPixmap('placeholder.png')
         label_logo.setPixmap(pixmap_logo)
@@ -58,13 +64,12 @@ class AdminLogin(QMainWindow):
     @pyqtSlot()
     def open_window(self):
         if((self.hash.check_Password(self,self.textbox_name.text(),self.textbox_password.text()))):
+            print("Login Sucessful")
             admin.close()
             self.newWindow.show()
         else:
-            self.label_Login_Error=QLabel("Login Error, Check your username and password",self)
-            self.label_Login_Error.setStyleSheet("color:red")
-            self.label_Login_Error.move(200,430)
-
+            self.label_login_error.show()
+            print("Login Failed")
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
