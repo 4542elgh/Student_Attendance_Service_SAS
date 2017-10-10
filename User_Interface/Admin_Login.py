@@ -57,9 +57,13 @@ class AdminLogin(QMainWindow):
 
     @pyqtSlot()
     def open_window(self):
-        print(self.hash.check_Password(self,self.textbox_name.text(),self.textbox_password.text()))
-        admin.close()
-        self.newWindow.show()
+        if((self.hash.check_Password(self,self.textbox_name.text(),self.textbox_password.text()))):
+            admin.close()
+            self.newWindow.show()
+        else:
+            self.label_Login_Error=QLabel("Login Error, Check your username and password",self)
+            self.label_Login_Error.setStyleSheet("color:red")
+            self.label_Login_Error.move(200,430)
 
 
 if __name__ == '__main__':
