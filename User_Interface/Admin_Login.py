@@ -2,10 +2,11 @@ import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QLineEdit, QPushButton
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import QUrl, pyqtSlot
-from Load_Roster import LoadRoster
+from User_Interface import Load_Roster
 from User_Interface import Register_Admin
 from User_Interface import Reset_Password
 from Hashing_PBKDF2 import PBKDF2_Algorithm
+
 
 class AdminLogin(QMainWindow):
     def __init__(self, parent=None):
@@ -19,10 +20,6 @@ class AdminLogin(QMainWindow):
         self.hash=PBKDF2_Algorithm.PBKDF2_Algorithm
         self.hash.generate_Hash(self,'admin','000000')
         self.init_ui()
-
-        self.newWindow=LoadRoster(self)
-        self.registerWindow=Register_Admin.Register_Admin(self)
-        self.resetWindow=Reset_Password.Reset_Password(self)
 
     def init_ui(self):
         print("print init here")
@@ -74,13 +71,12 @@ class AdminLogin(QMainWindow):
         alternate_login.setOpenExternalLinks(True)
         alternate_login.move(200, 480)
 
-        self.show()
-
     @pyqtSlot()
     def open_window(self):
         if (self.hash.check_Password(self,self.textbox_name.text(),self.textbox_password.text())):
             print("Login Sucessful")
             admin.close()
+            self.newWindow = Load_Roster.LoadRoster(self)
             self.newWindow.show()
         else:
             self.label_login_error.show()
@@ -88,11 +84,14 @@ class AdminLogin(QMainWindow):
 
     def open_register_admin_window(self):
         admin.close()
+        self.registerWindow = Register_Admin.Register_Admin(self)
         self.registerWindow.show()
 
     def open_reset_password_window(self):
         admin.close()
-        self.registerWindow.show()
+        self.resetWindow = Reset_Password.Reset_Password(self)
+        self.resetWindow.show()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

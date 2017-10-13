@@ -5,6 +5,7 @@ from PyQt5.QtCore import QUrl, pyqtSlot
 from Hashing_PBKDF2 import PBKDF2_Algorithm
 from User_Interface import Admin_Login
 
+
 class Register_Admin(QMainWindow):
     def __init__(self, parent=None):
         super().__init__()
@@ -15,7 +16,6 @@ class Register_Admin(QMainWindow):
         self.height = 550
         self.hash=PBKDF2_Algorithm.PBKDF2_Algorithm
         self.init_ui()
-        self.newWindow=Admin_Login
 
     def init_ui(self):
         self.setWindowTitle(self.title)
@@ -86,12 +86,13 @@ class Register_Admin(QMainWindow):
                         if msg.clickedButton() is another_admin:
                             self.restart()
                         elif msg.clickedButton() is return_SignIn:
-                            self.newWindow.AdminLogin(self)
+                            self.newWindow = Admin_Login.AdminLogin(self)
+                            self.newWindow.show()
                             register_admin.close()
                         else:
                             self.close()
                     else:
-                        print("Please make sure your password have 1 upper 1 lower 1 number 1 special cahracter")
+                        print("Please make sure your password have 1 upper 1 lower 1 number 1 special character")
                 else:
                     print("passwords length need to be between 6 to 16 characters")
             else:
