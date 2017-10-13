@@ -3,7 +3,8 @@ from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QLineEdi
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import QUrl, pyqtSlot
 from Load_Roster import LoadRoster
-from Register_Admin import Register_Admin
+from User_Interface import Register_Admin
+from User_Interface import Reset_Password
 from Hashing_PBKDF2 import PBKDF2_Algorithm
 
 class AdminLogin(QMainWindow):
@@ -20,9 +21,11 @@ class AdminLogin(QMainWindow):
         self.init_ui()
 
         self.newWindow=LoadRoster(self)
-        self.registerWindow=Register_Admin(self)
+        self.registerWindow=Register_Admin.Register_Admin(self)
+        self.resetWindow=Reset_Password.Reset_Password(self)
 
     def init_ui(self):
+        print("print init here")
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
 
@@ -64,7 +67,7 @@ class AdminLogin(QMainWindow):
         reset_button = QPushButton('Reset', self)
         reset_button.setToolTip('Login')
         reset_button.move(25, 460)
-        reset_button.clicked.connect(self.open_window)
+        reset_button.clicked.connect(self.open_reset_password_window)
 
         alternate_login = QLabel('Alternate Login', self)
         alternate_login.setText('''<a href='smileman.gif'>Alternate Login</a>''')
@@ -84,11 +87,15 @@ class AdminLogin(QMainWindow):
             print("Login Failed")
 
     def open_register_admin_window(self):
-        print("popup")
+        admin.close()
+        self.registerWindow.show()
+
+    def open_reset_password_window(self):
         admin.close()
         self.registerWindow.show()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     admin = AdminLogin()
+    admin.show()
     sys.exit(app.exec_())

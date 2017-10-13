@@ -35,3 +35,61 @@ class PBKDF2_Algorithm():
             except KeyError:
                 print("key not found")
                 return False
+
+    def check_Avaliable_Username(self,username): #return a true or false value indicating passsword valid or not
+        with open('../Hashing_PBKDF2/Admin_Login.pickle', 'rb') as readFile:
+            passwordList = pickle.load(readFile) #fetch all the dict entry from file
+            if username in passwordList:# get the user input password (login) and check it with the hash from that user's dict, python will keep track which algorithm u use and how many iteration you used.
+                return False
+            else:
+                 return True
+
+    def check_Identical_Password(self,password,rePassword):
+        if(password==rePassword):
+            return True
+        else:
+            return False
+
+    def check_Password_Length(self,password):
+        if(len(password)<6 or len(password)>16):
+            return False
+        else:
+            return True
+
+    def isnum(num):
+        try:
+            float(num)
+            return True
+        except ValueError:
+            return False
+
+    def check_Special_Character(password):
+        special=0
+        upper=0
+        lower = 0
+        number=0
+
+        for element in password:
+            if element.isupper():
+                upper+=1
+            elif element.islower():
+                lower+=1
+            elif PBKDF2_Algorithm.isnum(element):
+                number+=1
+            else:
+                special+=1
+        print(special)
+        print(upper)
+        print(lower)
+        print(number)
+
+        if(special !=0 and upper != 0 and lower !=0 and number !=0):
+            return True
+        else:
+            return False
+
+
+
+
+
+

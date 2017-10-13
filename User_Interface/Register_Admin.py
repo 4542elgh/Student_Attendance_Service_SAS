@@ -1,20 +1,21 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QLineEdit, QPushButton
+from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QLineEdit, QPushButton, QMessageBox
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import QUrl, pyqtSlot
 from Hashing_PBKDF2 import PBKDF2_Algorithm
+from User_Interface import Admin_Login
 
 class Register_Admin(QMainWindow):
     def __init__(self, parent=None):
         super().__init__()
         self.title = 'Administrator Register'
-
         self.left = 50
         self.top = 50
         self.width = 300
         self.height = 550
         self.hash=PBKDF2_Algorithm.PBKDF2_Algorithm
         self.init_ui()
+        self.newWindow=Admin_Login
 
     def init_ui(self):
         self.setWindowTitle(self.title)
@@ -45,55 +46,82 @@ class Register_Admin(QMainWindow):
         self.textbox_password.move(25, 385)
         self.textbox_password.setEchoMode(QLineEdit.Password)
 
-        label_password = QLabel('Re-enter password:', self)
-        label_password.move(25, 415)
-        label_password.setMinimumWidth(300)
-        self.textbox_password = QLineEdit(self)
-        self.textbox_password.resize(250, 20)
-        self.textbox_password.move(25, 445)
-        self.textbox_password.setEchoMode(QLineEdit.Password)
+        label_re_password = QLabel('Re-enter password:', self)
+        label_re_password.move(25, 415)
+        label_re_password.setMinimumWidth(300)
+        self.textbox_re_password = QLineEdit(self)
+        self.textbox_re_password.resize(250, 20)
+        self.textbox_re_password.move(25, 445)
+        self.textbox_re_password.setEchoMode(QLineEdit.Password)
 
         login_button = QPushButton('Register', self)
         login_button.setToolTip('Register an admin account')
         login_button.move(175, 480)
         login_button.clicked.connect(self.open_register_window)
-        #
-        # register_button = QPushButton('Register', self)
-        # register_button.setToolTip('Register an admin account')
-        # register_button.move(25, 480)
-        # register_button.clicked.connect(self.open_window)
-        #
-        # reset_button = QPushButton('Reset', self)
-        # reset_button.setToolTip('Login')
-        # reset_button.move(25, 515)
-        # reset_button.clicked.connect(self.open_window)
-        #
-        # alternate_login = QLabel('Alternate Login', self)
-        # alternate_login.setText('''<a href='smileman.gif'>Alternate Login</a>''')
-        # alternate_login.setOpenExternalLinks(True)
-        # alternate_login.move(200, 520)
-
 
     @pyqtSlot()
-    # def open_window(self):
-    #     if((self.hash.check_Password(self,self.textbox_name.text(),self.textbox_password.text()))):
-    #         print("Login Sucessful")
-    #         admin.close()
-    #         self.newWindow.show()
-    #     else:
-    #         self.label_login_error.show()
-    #         print("Login Failed")
 
     def open_register_window(self):
-        if((self.hash.check_Password(self,self.textbox_name.text(),self.textbox_password.text()))):
-            print("duplicate username")
+        if self.textbox_name.text()=='':
+            print("textbox is empty")
             self.label_login_error.show()
-        else:
-            admin.close()
-            self.newWindow.show()
-            # self.label_login_error.show()
-            # print("Login Failed")
+        elif(self.hash.check_Avaliable_Username(self,self.textbox_name.text())):
+            print("username is avaliable")
+            self.label_login_error.hide()
+            if(self.hash.check_Identical_Password(self,self.textbox_password.text(),self.textbox_re_password.text())):
+                if(self.hash.check_Password_Length(self,self.textbox_password.text())):
+                    if(self.hash.check_Special_Character(self.textbox_password.text())):
+                        # show_Exit_Dialog(self)
+                        msg = QMessageBox(self)
+                        msg.setIcon(QMessageBox.Question)
+                        msg.setWindowTitle('Confirmation')
+                        msg.setText('Register Sucess!:')
+                        another_admin = msg.addButton('Register Another Admin', QMessageBox.AcceptRole)
+                        return_SignIn = msg.addButton('Return to Sign-in', QMessageBox.AcceptRole)
+                        quit = msg.addButton('Exit Program', QMessageBox.RejectRole)
+                        msg.setDefaultButton(return_SignIn)
+                        msg.exec_()
+                        msg.deleteLater()
 
+                        if msg.clickedButton() is another_admin:
+                            self.restart()
+                        elif msg.clickedButton() is return_SignIn:
+                            self.newWindow.AdminLogin(self)
+                            register_admin.close()
+                        else:
+                            self.close()
+                    else:
+                        print("Please make sure your password have 1 upper 1 lower 1 number 1 special cahracter")
+                else:
+                    print("passwords length need to be between 6 to 16 characters")
+            else:
+                print("passwords is not identical")
+                self.label_login_error.show()
+
+        else:
+            print("username is taken")
+            self.label_login_error.show()
+
+    # def show_Exit_Dialog(self):
+    #     msg = QMessageBox(self)
+    #     msg.setIcon(QMessageBox.Question)
+    #     msg.setWindowTitle('Confirmation')
+    #     msg.setText('Register Sucess!:')
+    #     another_admin = msg.addButton('Register Another Admin', QMessageBox.AcceptRole)
+    #     return_SignIn = msg.addButton('Return to Sign-in', QMessageBox.AcceptRole)
+    #     quit = msg.addButton('Exit Program', QMessageBox.RejectRole)
+    #     msg.setDefaultButton(return_SignIn)
+    #     msg.exec_()
+    #     msg.deleteLater()
+    #
+    #     if msg.clickedButton() is another_admin:
+    #         print('RESTART')
+    #         self.restart()
+    #     elif msg.clickedButton() is return_SignIn:
+    #         self.newWindow.show()
+    #         register_admin.close()
+    #     else:
+    #         self.close()
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     register_admin = Register_Admin()
