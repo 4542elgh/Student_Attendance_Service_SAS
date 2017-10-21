@@ -2,9 +2,11 @@ import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog, QLabel, QPushButton
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QSize
+from User_Interface import Set_Parameter
 
 
 class LoadRoster(QWidget):
+    file_pass = ""
 
     def __init__(self, parent=None):
         super().__init__()
@@ -39,6 +41,7 @@ class LoadRoster(QWidget):
         button_submit.setIconSize(QSize(15, 15))
         button_submit.setMaximumSize(25, 22.5)
         button_submit.move(535, 299)
+        button_submit.clicked.connect(self.open_set_parameter)
 
     def open_file_names_dialog(self):
 
@@ -48,9 +51,14 @@ class LoadRoster(QWidget):
                                                 "All Files (*);;Python Files (*.py)", options=options)
         if files:
             file_name = files[0]
-
+            self.file_pass = file_name
             line = self.findChild(QLineEdit, "line")
             line.setText(file_name)
+
+    def open_set_parameter(self):
+        self.close()
+        self.set_parameter = Set_Parameter.SetParameter(self.file_pass)
+        self.set_parameter.show()
 
 
 if __name__ == '__main__':
