@@ -1,33 +1,34 @@
 class Student:
+
     def __init__(self,serial,firstName,lastName,cin):
-        self.serial=serial;
-        self.firstName=firstName
-        self.lastName=lastName
-        self.cin=cin
-   
+        setattr(self, "serial", serial)
+        setattr(self, "firstName", firstName)
+        setattr(self, "lastName", lastName)
+        setattr(self, "cin", cin)
+
     def getSerial(self):
-        return self.serial;
+        return getattr(self,"serial")
     
     def getFirstName(self):
-        return self.firstName;
+        return getattr(self,"firstName")
     
     def getLastName(self):
-        return self.lastName;
+        return getattr(self,"lastName")
 
     def getCIN(self):
-        return self.cin
+        return getattr(self,"cin")
 
-    def setSerial(self,serial):
-        self.serial=serial
+    def setSerial(self,serialID):
+        setattr(self,"serial",serialID)
 
     def setFirstName(self,firstName):
-        self.firstName=firstName
+        setattr(self, "firstName", firstName)
 
     def setLastName(self,lastName):
-        self.lastName=lastName
+        setattr(self, "lastName", lastName)
 
     def setCIN(self,cin):
-        self.cin=cin
+        setattr(self, "cin", cin)
 
     def toList(self):
         return [self.serial , self.firstName , self.lastName , self.cin]

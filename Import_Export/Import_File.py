@@ -2,26 +2,20 @@ from Import_Export import Import_Abstract
 import xml.etree.ElementTree as ET
 import csv
 import json
+from Student import Student
 
-class importXML(Import_Abstract.Import_Abstract):
-    def toList(self):
-        tree = ET.parse("../FileIO/Student_Roll_Sheet.xml")
-        root = tree.getroot()
-        xmlList=[]
-        for childNode in root: #parent root this is each student's header
-            # print(childNode.tag,childNode.text) #node.text will give the element value (the value in between <>xxx<> )
-            for grandChildNode in childNode: #this is the attribute that specific student will have
-                xmlList.append(grandChildNode.tag)
-                xmlList.append(grandChildNode.text)
-        return xmlList
-        
 class importCSV(Import_Abstract.Import_Abstract):
     def toList(self):
         csvList=[]
         with open("../FileIO/Student_Roll_Sheet.csv","r") as import_File:
             spamreader = csv.reader(import_File, delimiter=',', quotechar='|') #separate values by comma, and split them into a list
+            counter=0
             for element in spamreader:
-                csvList.append(element)
+                if counter ==0:
+                    counter+=1
+                    pass
+                else:
+                    csvList.append(Student.Student(element[0], element[1], element[2], element[3]))
         return csvList
 
 def json_recursion(obj): #this is a recursive method
@@ -43,5 +37,16 @@ class importJSON(Import_Abstract.Import_Abstract):
                 jsonList.append(item)
         return jsonList
 
-
-
+class importXML(Import_Abstract.Import_Abstract):
+    def toList(self):
+        tree = ET.parse("../FileIO/Student_Roll_Sheet.xml")
+        root = tree.getroot()
+        xmlList=[]
+        for childNode in root: #parent root this is each student's header
+            xmlList.append(Student.Student(childNode[0].text, childNode[1].text, childNode[2].text, childNode[3].text))
+            # print(childNode.tag,childNode.text) #node.text will give the element value (the value in between <>xxx<> )
+            # temp=Student.Student()
+            # for grandChildNode in childNode: #this is the attribute that specific student will have
+            #     # xmlList.append(grandChildNode.tag)
+            #     xmlList.append(grandChildNode.text)
+        return xmlList
