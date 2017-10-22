@@ -8,8 +8,8 @@ class Main(): #do every entry in string, export will handle the datatype
 
     Export_File.exportJSON.exportToFile(object,[["1","Evan","Liu","30417199"],["3","Sherry","Liu","2039812411"]])
     xml = Import_File.importJSON.toList(object)
-    for element in xml:
-        print(element)
+    # for element in xml:
+    #     print(element)
 
 
     # print(xml)

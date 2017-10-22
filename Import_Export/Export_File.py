@@ -14,16 +14,13 @@ class exportCSV(Export_Abstract.Export_Abstract):
     
 class exportJSON(Export_Abstract.Export_Abstract):
     def exportToFile(self,StudentList): #inheret from parent class
-        Alias = ["", "FirstName", "LastName", "CIN"]
+        Alias = ["SerialID", "FirstName", "LastName", "CIN"]
         studentDictionary={} #initalize an empty 1D dict
         with open('../FileIO/Student_Roll_Sheet.json', 'w') as json_Output:
             for element in StudentList:
                 studentDictionary[element[0]]={} #initalize 2d dict for header ID aka element[0]
                 innerCounter=0 #keep track of Alias
                 for subelement in element:
-                    if innerCounter==0: #skip alias attribute
-                        innerCounter += 1
-                        continue
                     studentDictionary[element[0]][Alias[innerCounter]]=subelement #at 1D with attribute ID at 2D at attribute ALIAS set the value of 2D list
                     innerCounter+=1
             json.dump(studentDictionary, json_Output)
