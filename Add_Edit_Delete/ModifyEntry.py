@@ -2,11 +2,11 @@ from Add_Edit_Delete import ModifyEntry_Abstract
 from Student import Student
 from Import_Export import Sorting_List
 
-class Modify_Entry(ModifyEntry_Abstract):
+class Modify_Entry(ModifyEntry_Abstract.ModifyEntry_Abstract):
 
     def Add_Entry(self,list,serial,firstName,lastName,cin):
         list.append(Student.Student(serial,firstName,lastName,cin))
-        Sorting_List.Sorting_List(list)
+        Sorting_List.Sorting_List.quickSort(list)
         return list
 
     def Get_Info(self,list,cin):
