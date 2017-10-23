@@ -3,6 +3,7 @@ import xml.etree.ElementTree as ET
 import csv
 import json
 from Student import Student
+from Import_Export import Sorting_List
 
 class importCSV(Import_Abstract.Import_Abstract):
     def toList(self):
@@ -16,7 +17,10 @@ class importCSV(Import_Abstract.Import_Abstract):
                     continue
                 else:
                     csvList.append(Student.Student(element[0], element[1], element[2], element[3]))
-        return csvList
+                Sorting_List.Sorting_List.quickSort(csvList)
+            return csvList
+
+        # return csvList
 
 def json_recursion(obj): #this is a recursive method
     if isinstance(obj,dict): #check if this passed in object is a dictionary (json.load produce a dictionary)
@@ -39,8 +43,8 @@ class importJSON(Import_Abstract.Import_Abstract):
                 if len(temp)==4:
                     jsonList.append(Student.Student(temp[0],temp[1],temp[2],temp[3]))
                     temp=[]
-
-        return jsonList
+            Sorting_List.Sorting_List.quickSort(jsonList)
+            return jsonList
 
 class importXML(Import_Abstract.Import_Abstract):
     def toList(self):
@@ -54,4 +58,5 @@ class importXML(Import_Abstract.Import_Abstract):
             # for grandChildNode in childNode: #this is the attribute that specific student will have
             #     # xmlList.append(grandChildNode.tag)
             #     xmlList.append(grandChildNode.text)
+        Sorting_List.Sorting_List.quickSort(xmlList)
         return xmlList
