@@ -34,21 +34,12 @@ class importJSON(Import_Abstract.Import_Abstract):
         with open("../FileIO/Student_Roll_Sheet.json","r") as import_File:
             jsonData=json.load(import_File) # print(type(jsonData)) this return dict for object type
             temp=[]
-            counter=-1
             for item in json_recursion(jsonData): # this loop will call json_recursion.next() each time the loop finishes (but this memory saving generator can be stopped at anytime rather than function with return that have to finish executing the entire loop)
-                if counter%3==0 and counter!=0:
+                temp.append(item)
+                if len(temp)==4:
                     jsonList.append(Student.Student(temp[0],temp[1],temp[2],temp[3]))
-                    # print(temp[0])
-                    # print(temp[1])
-                    # print(temp[2])
-                    # print(temp[3])
-                    print("i am here") #this loop need 1 more iteration
                     temp=[]
-                    counter=0
-                else:
-                    temp.append(item)
-                    counter+=1
-                print(counter) #it stops here
+
         return jsonList
 
 class importXML(Import_Abstract.Import_Abstract):
