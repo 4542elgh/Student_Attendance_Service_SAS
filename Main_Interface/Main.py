@@ -1,11 +1,38 @@
-from Hashing_PBKDF2 import PBKDF2_Algorithm
-from User_Interface import Admin_Login
-class Main():
-    # PBKDF2_Algorithm.PBKDF2_Algorithm.generate_Hash(object,"evan","easypassword")
-    # a=[1,2,3,4,5,6,7,8,9,0]
-    # for element in a:
+from Import_Export import Export_File
+from Import_Export import Import_File
+from Add_Edit_Delete import ModifyEntry
+class Main(): #do every entry in string, export will handle the datatype
+
+
+    #This is the method to use the import and export for 3 file types --------------------------------------------
+
+    Export_File.exportCSV.exportToFile(object,[["1","Evan","Liu","922"]])
+    xml = Import_File.importCSV.toList(object)
+    xml2=ModifyEntry.Modify_Entry.Add_Entry(object,xml,"3","Sherry","Liu","253")
+    print(len(xml2))
+    print(xml2[0].getFirstName())
+    print(xml2[1].getFirstName())
+    determine,xml3=ModifyEntry.Modify_Entry.Delete_Entry(object,xml2,"922")
+    print(len(xml3))
+    print(determine)
+    determine2, xml4 = ModifyEntry.Modify_Entry.Edit_Entry(object, xml3,"1","Juno","Zhang" ,"253")
+    print(xml4[0].getFirstName())
+    print(determine2)
+
+    # print(xml[0].getCIN())
+    # print(xml[1].getCIN())
+    # for element in xml:
     #     print(element)
-    # PBKDF2_Algorithm.PBKDF2_Algorithm.check_Password(object,"evan","anotherpassword")
-    #
-    # hash=PBKDF2_Algorithm.PBKDF2_Algorithm
-    # print(hash.check_Special_Character("iloveGH97!"))
+
+
+    # print(xml)
+    # Export_File.exportCSV.exportToFile(object,[["1","Evan","Liu","30417199"],["3","Sherry","Liu","2039812411"]])
+    # csv = Import_File.importCSV.toList(object)
+    # print(type(csv))
+    # for element in csv:
+    #     print(element)
+    # Export_File.exportJSON.exportToFile(object,[["1","Evan","Liu","30417199"], ["3","Sherry","Liu","2039812411"]])
+    # json = Import_File.importJSON.toList(object)
+    # print(type(json))
+    # for element in json:
+    #     print(element)
