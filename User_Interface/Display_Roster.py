@@ -13,6 +13,7 @@ from User_Interface import Display_Roster
 class App(QWidget):
     def __init__(self, file_name):
         super().__init__()
+        self.setWindowModality(QtCore.Qt.ApplicationModal)
         self.left = 200
         self.top = 200
         self.width = 600
@@ -20,6 +21,7 @@ class App(QWidget):
         self.file_name = file_name
         self.file_extension = self.file_name[self.file_name.rfind(".") + 1:]
         self.students = self.parse_file()
+
         self.initUI()
 
 

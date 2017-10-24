@@ -46,6 +46,7 @@ class MainMenu(QWidget):
 
         display_roster = QPushButton("Show Roster", self)
         display_roster.move(35, 230)
+        display_roster.clicked.connect(self.show_table)
 
         change_file = QPushButton("", self)
         change_file.setToolTip("Change roster file")
@@ -108,7 +109,8 @@ class MainMenu(QWidget):
             combobox.addItem(str(i))
 
     def show_table(self):
-        print()
+        self.display_table = Display_Roster.App(self.file_name)
+        self.display_table.show()
 
 
 if __name__ == '__main__':
