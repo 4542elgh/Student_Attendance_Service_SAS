@@ -1,6 +1,7 @@
 from Import_Export import Export_File
 from Import_Export import Import_File
 from Add_Edit_Delete import ModifyEntry
+from User_Interface import Display_Roster
 class Main(): #do every entry in string, export will handle the datatype
 
 
@@ -9,15 +10,20 @@ class Main(): #do every entry in string, export will handle the datatype
     Export_File.exportCSV.exportToFile(object,[["1","Evan","Liu","922"]])
     xml = Import_File.importCSV.toList(object)
     xml2=ModifyEntry.Modify_Entry.Add_Entry(object,xml,"3","Sherry","Liu","253")
-    print(len(xml2))
-    print(xml2[0].getFirstName())
-    print(xml2[1].getFirstName())
-    determine,xml3=ModifyEntry.Modify_Entry.Delete_Entry(object,xml2,"922")
-    print(len(xml3))
-    print(determine)
-    determine2, xml4 = ModifyEntry.Modify_Entry.Edit_Entry(object, xml3,"1","Juno","Zhang" ,"253")
-    print(xml4[0].getFirstName())
-    print(determine2)
+    display = Display_Roster.App
+    display.setStudentList(object,xml2)
+    display.show()
+
+
+    # print(len(xml2))
+    # print(xml2[0].getFirstName())
+    # print(xml2[1].getFirstName())
+    # determine,xml3=ModifyEntry.Modify_Entry.Delete_Entry(object,xml2,"922")
+    # print(len(xml3))
+    # print(determine)
+    # determine2, xml4 = ModifyEntry.Modify_Entry.Edit_Entry(object, xml3,"1","Juno","Zhang" ,"253")
+    # print(xml4[0].getFirstName())
+    # print(determine2)
 
     # print(xml[0].getCIN())
     # print(xml[1].getCIN())
