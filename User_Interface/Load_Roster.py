@@ -2,7 +2,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog, QLabel, QPushButton
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QSize
-from User_Interface import Display_Roster
+from User_Interface import Admin_Main_Menu
 
 
 class LoadRoster(QWidget):
@@ -57,8 +57,8 @@ class LoadRoster(QWidget):
 
     def open_set_parameter(self):
         self.close()
-        self.set_parameter = Display_Roster.App(self.file_pass)
-        self.set_parameter.show()
+        self.menu = Admin_Main_Menu.MainMenu(self.file_pass)
+        self.menu.show()
 
 
 if __name__ == '__main__':
