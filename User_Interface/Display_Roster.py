@@ -24,7 +24,7 @@ class App(QWidget):
 
 
     def initUI(self):
-        self.setWindowTitle("Dispaying Roster for") #have a method to get the file name for class indication
+        self.setWindowTitle("Displaying Roster for") #have a method to get the file name for class indication
         self.setGeometry(self.left, self.top, self.width, self.height)
 
         self.createTable()
@@ -38,14 +38,14 @@ class App(QWidget):
         self.show()
 
     def parse_file(self):
-        if self.file_extension  == "csv":
+        if self.file_extension == "csv":
             return Import_File.importCSV().toList(self.file_name)
 
         elif self.file_extension == "xml":
-            return Import_File.importXML.toList(self.file_name)
+            return Import_File.importXML.toList(object, self.file_name)
 
         elif self.file_extension == "json":
-            return Import_File.importJSON.toList(self.file_name)
+            return Import_File.importJSON.toList(object, self.file_name)
 
     def createTable(self):
         # Create table

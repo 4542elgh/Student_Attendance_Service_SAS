@@ -32,10 +32,11 @@ def json_recursion(obj): #this is a recursive method
     else:
         yield obj #yield keyword is used as a generator -- where a value can be return, use and forget immediately, not storing in memeory and dont need to wait for entire calculation completion
 
+
 class importJSON(Import_Abstract.Import_Abstract):
-    def toList(self, file_extension):
+    def toList(self, file_name):
         jsonList = [] #defining datatype
-        with open(file_extension,"r") as import_File:
+        with open(file_name,"r") as import_File:
             jsonData=json.load(import_File) # print(type(jsonData)) this return dict for object type
             temp=[]
             for item in json_recursion(jsonData): # this loop will call json_recursion.next() each time the loop finishes (but this memory saving generator can be stopped at anytime rather than function with return that have to finish executing the entire loop)
@@ -45,6 +46,7 @@ class importJSON(Import_Abstract.Import_Abstract):
                     temp=[]
             Sorting_List.Sorting_List.quickSort(jsonList)
             return jsonList
+
 
 class importXML(Import_Abstract.Import_Abstract):
     def toList(self, file_name):
