@@ -6,9 +6,9 @@ from Student import Student
 from Import_Export import Sorting_List
 
 class importCSV(Import_Abstract.Import_Abstract):
-    def toList(self):
+    def toList(self, file_name):
         csvList=[]
-        with open("../FileIO/Student_Roll_Sheet.csv","r") as import_File:
+        with open(file_name,"r") as import_File:
             spamreader = csv.reader(import_File, delimiter=',', quotechar='|') #separate values by comma, and split them into a list
             counter=0
             for element in spamreader:
@@ -33,9 +33,9 @@ def json_recursion(obj): #this is a recursive method
         yield obj #yield keyword is used as a generator -- where a value can be return, use and forget immediately, not storing in memeory and dont need to wait for entire calculation completion
 
 class importJSON(Import_Abstract.Import_Abstract):
-    def toList(self):
+    def toList(self, file_extension):
         jsonList = [] #defining datatype
-        with open("../FileIO/Student_Roll_Sheet.json","r") as import_File:
+        with open(file_extension,"r") as import_File:
             jsonData=json.load(import_File) # print(type(jsonData)) this return dict for object type
             temp=[]
             for item in json_recursion(jsonData): # this loop will call json_recursion.next() each time the loop finishes (but this memory saving generator can be stopped at anytime rather than function with return that have to finish executing the entire loop)
@@ -47,8 +47,8 @@ class importJSON(Import_Abstract.Import_Abstract):
             return jsonList
 
 class importXML(Import_Abstract.Import_Abstract):
-    def toList(self):
-        tree = ET.parse("../FileIO/Student_Roll_Sheet.xml")
+    def toList(self, file_name):
+        tree = ET.parse(file_name)
         root = tree.getroot()
         xmlList=[]
         for childNode in root: #parent root this is each student's header

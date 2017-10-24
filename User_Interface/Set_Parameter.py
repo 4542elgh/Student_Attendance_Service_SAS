@@ -3,8 +3,6 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel
 
 
 class SetParameter(QMainWindow):
-    file_name = ""
-
     def __init__(self, file_name, parent=None):
         super().__init__()
         self.title = 'Set Parameters'
@@ -12,7 +10,6 @@ class SetParameter(QMainWindow):
         self.top = 200
         self.width = 600
         self.height = 400
-        self.init_ui()
         self.file_name = file_name
         self.init_ui()
 
