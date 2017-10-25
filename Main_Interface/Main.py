@@ -7,12 +7,8 @@ class Main(): #do every entry in string, export will handle the datatype
 
     #This is the method to use the import and export for 3 file types --------------------------------------------
 
-    Export_File.exportCSV.exportToFile(object,[["1","Evan","Liu","922"]])
-    xml = Import_File.importCSV.toList(object)
-    xml2=ModifyEntry.Modify_Entry.Add_Entry(object,xml,"3","Sherry","Liu","253")
-    display = Display_Roster.App
-    display.setStudentList(object,xml2)
-    display.show()
+    Export_File.exportCSV.exportToFile(object,[["1","Evan","Liu","922"],["3","Sherry","Liu","253"]])
+
 
 
     # print(len(xml2))

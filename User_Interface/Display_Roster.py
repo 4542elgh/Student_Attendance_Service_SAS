@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QAction, QTableWidget, QTableWidgetItem, QVBoxLayout
+from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QAction, QTableWidget, QTableWidgetItem, QVBoxLayout,QPushButton
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtCore
@@ -54,16 +54,22 @@ class App(QWidget):
 
         self.tableWidget = QTableWidget()
         self.tableWidget.setRowCount(len(self.students)) #get the total # of student list length
-        self.tableWidget.setColumnCount(4)
-        self.tableWidget.setHorizontalHeaderLabels("CIN;First Name;Last Name;Serial Number".split(";"))
+        self.tableWidget.setColumnCount(5)
+        self.tableWidget.setFixedHeight(325)
+        self.tableWidget.move(100,100)
+
+        self.tableWidget.setHorizontalHeaderLabels("CIN;First Name;Last Name;Serial Number;Operation".split(";"))
         
         counter=0
         for student in self.students:
             student.getFirstName()
+
             self.tableWidget.setItem(counter,0,QTableWidgetItem(student.getCIN()))
             self.tableWidget.setItem(counter,1, QTableWidgetItem(student.getFirstName()))
             self.tableWidget.setItem(counter,2, QTableWidgetItem(student.getLastName()))
             self.tableWidget.setItem(counter,3, QTableWidgetItem(student.getSerial()))
+            self.btn_sell = QPushButton('Edit')
+            self.tableWidget.setCellWidget(counter, 4,self.btn_sell)
             counter=counter+1
         # self.tableWidget.setItem(0, 0, QTableWidgetItem("Cell (1,1)"))
         # self.tableWidget.setItem(0, 1, QTableWidgetItem("Cell (1,2)"))
