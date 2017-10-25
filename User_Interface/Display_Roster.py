@@ -1,5 +1,6 @@
 import sys
-from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QAction, QTableWidget, QTableWidgetItem, QVBoxLayout,QPushButton
+from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QAction, QTableWidget, QTableWidgetItem, QVBoxLayout, \
+    QPushButton
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtCore
@@ -24,9 +25,8 @@ class App(QWidget):
 
         self.initUI()
 
-
     def initUI(self):
-        self.setWindowTitle("Displaying Roster for") #have a method to get the file name for class indication
+        self.setWindowTitle("Displaying Roster for")  # have a method to get the file name for class indication
         self.setGeometry(self.left, self.top, self.width, self.height)
 
         self.createTable()
@@ -53,24 +53,24 @@ class App(QWidget):
         # Create table
 
         self.tableWidget = QTableWidget()
-        self.tableWidget.setRowCount(len(self.students)) #get the total # of student list length
+        self.tableWidget.setRowCount(len(self.students))  # get the total # of student list length
         self.tableWidget.setColumnCount(5)
         self.tableWidget.setFixedHeight(325)
-        self.tableWidget.move(100,100)
+        self.tableWidget.move(100, 100)
 
         self.tableWidget.setHorizontalHeaderLabels("CIN;First Name;Last Name;Serial Number;Operation".split(";"))
-        
-        counter=0
+
+        counter = 0
         for student in self.students:
             student.getFirstName()
 
-            self.tableWidget.setItem(counter,0,QTableWidgetItem(student.getCIN()))
-            self.tableWidget.setItem(counter,1, QTableWidgetItem(student.getFirstName()))
-            self.tableWidget.setItem(counter,2, QTableWidgetItem(student.getLastName()))
-            self.tableWidget.setItem(counter,3, QTableWidgetItem(student.getSerial()))
+            self.tableWidget.setItem(counter, 0, QTableWidgetItem(student.getCIN()))
+            self.tableWidget.setItem(counter, 1, QTableWidgetItem(student.getFirstName()))
+            self.tableWidget.setItem(counter, 2, QTableWidgetItem(student.getLastName()))
+            self.tableWidget.setItem(counter, 3, QTableWidgetItem(student.getSerial()))
             self.btn_sell = QPushButton('Edit')
-            self.tableWidget.setCellWidget(counter, 4,self.btn_sell)
-            counter=counter+1
+            self.tableWidget.setCellWidget(counter, 4, self.btn_sell)
+            counter = counter + 1
         # self.tableWidget.setItem(0, 0, QTableWidgetItem("Cell (1,1)"))
         # self.tableWidget.setItem(0, 1, QTableWidgetItem("Cell (1,2)"))
         # self.tableWidget.setItem(1, 0, QTableWidgetItem("Cell (2,1)"))
