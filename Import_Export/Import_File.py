@@ -17,8 +17,14 @@ class importCSV(Import_Abstract.Import_Abstract):
                     continue
                 else:
                     csvList.append(Student.Student(element[0], element[1], element[2], element[3]))
-                Sorting_List.Sorting_List.quickSort(csvList)
-            return csvList
+            # for element in csvList:
+            #     print(element.getCIN())
+            # Sorting_List.Sorting_List.ins_sort(csvList)
+            # print("\n")
+            # for element in csvList:
+            #     print(element.getCIN())
+            newlist=sorted(csvList,key=lambda x : x.getCIN(), reverse=True)
+            return newlist
 
         # return csvList
 
@@ -60,5 +66,5 @@ class importXML(Import_Abstract.Import_Abstract):
             # for grandChildNode in childNode: #this is the attribute that specific student will have
             #     # xmlList.append(grandChildNode.tag)
             #     xmlList.append(grandChildNode.text)
-        Sorting_List.Sorting_List.quickSort(xmlList)
+        Sorting_List.Sorting_List.ins_sort(xmlList)
         return xmlList
