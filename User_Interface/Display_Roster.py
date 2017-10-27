@@ -70,8 +70,16 @@ class App(QWidget):
         print(cin)
 
     def on_click_delete(self,cin):
-        print(cin)
+        for student in self.students:
+            if student.getCIN() == cin:
+                self.students.remove(student)
 
+        for student in self.students:
+            print(student.getCIN())
+        self.close()
+        self.display_table =App(self.file_name)
+        self.display_table.show()
+        # self.tableWidget.update()
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = App()

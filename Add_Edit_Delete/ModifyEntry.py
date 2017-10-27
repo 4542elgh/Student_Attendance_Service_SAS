@@ -24,13 +24,13 @@ class Modify_Entry(ModifyEntry_Abstract.ModifyEntry_Abstract):
                 return True, list
         return False,list
 
-    def Delete_Entry(self,list,cin): #delete a file does not affect the sorting of the entire list, no need to sort again
-        for x in (0,len(list)-1):
-            if list[x].getCIN()==cin:
-                del list[x]
-                return True,list # sucessfully delete a CIN
-        return False,list # did not find a corresponding CIN
-
-
-
-
+    def Delete_Entry(self,students,cin): #delete a file does not affect the sorting of the entire list, no need to sort again
+        # print("enter edit entry")
+        # for x in (0,len(list)-1):
+        #     if list[x].getCIN()==cin:
+        #         del list[x]
+        #         return list
+        # return list
+        for x in self.list:
+            if x.getCIN() == cin:
+                self.list.remove(x)
