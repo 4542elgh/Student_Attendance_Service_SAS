@@ -23,8 +23,8 @@ class importCSV(Import_Abstract.Import_Abstract):
             # print("\n")
             # for element in csvList:
             #     print(element.getCIN())
-            newlist=sorted(csvList,key=lambda x : x.getCIN(), reverse=True)
-            return newlist
+            Sorting_List.Sorting_List.merge_Sort(csvList)
+            return csvList
 
         # return csvList
 
@@ -50,7 +50,7 @@ class importJSON(Import_Abstract.Import_Abstract):
                 if len(temp)==4:
                     jsonList.append(Student.Student(temp[0],temp[1],temp[2],temp[3]))
                     temp=[]
-            Sorting_List.Sorting_List.quickSort(jsonList)
+            Sorting_List.Sorting_List.merge_Sort(jsonList)
             return jsonList
 
 
