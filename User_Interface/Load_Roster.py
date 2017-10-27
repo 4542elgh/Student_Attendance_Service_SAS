@@ -51,12 +51,13 @@ class LoadRoster(QWidget):
                                                 "All Files (*);;Python Files (*.py)", options=options)
         if files:
             file_name = files[0]
-            self.file_pass = file_name
             line = self.findChild(QLineEdit, "line")
             line.setText(file_name)
 
     def open_set_parameter(self):
         self.close()
+        line = self.findChild(QLineEdit, "line")
+        self.file_pass = str(line.text())
         self.menu = Admin_Main_Menu.MainMenu(self.file_pass)
         self.menu.show()
 
