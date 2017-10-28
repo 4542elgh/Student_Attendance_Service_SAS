@@ -53,10 +53,10 @@ class App(QWidget):
             self.tableWidget.setItem(counter, 2, QTableWidgetItem(student.getLastName()))
             self.tableWidget.setItem(counter, 3, QTableWidgetItem(student.getSerial()))
             self.edit_button = QPushButton('Edit')
-            self.edit_button.clicked.connect(lambda state, x=student.getCIN(): self.on_click_edit(x))
+            self.edit_button.clicked.connect(lambda state, x=student.getCIN(),y=counter: self.on_click_edit(x,y))
             self.tableWidget.setCellWidget(counter, 4, self.edit_button)
             self.delete_button = QPushButton('Delete')
-            self.delete_button.clicked.connect(lambda state, x=student.getCIN(): self.on_click_delete(x))
+            self.delete_button.clicked.connect(lambda state, x=student.getCIN(),y=counter: self.on_click_delete(x,y))
             self.tableWidget.setCellWidget(counter, 5, self.delete_button)
             counter = counter + 1
 
@@ -69,16 +69,37 @@ class App(QWidget):
     def on_click_edit(self,cin):
         print(cin)
 
-    def on_click_delete(self,cin):
+    def on_click_delete(self,cin,rowNum):
+        # self.tableWidget.currentItem()
         for student in self.students:
             if student.getCIN() == cin:
+                self.tableWidget.removeRow(rowNum)
                 self.students.remove(student)
-
+                print(cin)
+                print(rowNum)
+        counter = 0
         for student in self.students:
-            print(student.getCIN())
-        self.close()
-        self.display_table =App(self.file_name)
-        self.display_table.show()
+            self.tableWidget.setItem(counter, 0, QTableWidgetItem(student.getCIN()))
+            self.tableWidget.setItem(counter, 1, QTableWidgetItem(student.getFirstName()))
+            self.tableWidget.setItem(counter, 2, QTableWidgetItem(student.getLastName()))
+            self.tableWidget.setItem(counter, 3, QTableWidgetItem(student.getSerial()))
+            self.edit_button = QPushButton('Edit')
+            self.edit_button.clicked.connect(
+                lambda state, x=student.getCIN(), y=counter: self.on_click_edit(x, y))
+            self.tableWidget.setCellWidget(counter, 4, self.edit_button)
+            self.delete_button = QPushButton('Delete')
+            self.delete_button.clicked.connect(
+            lambda state, x=student.getCIN(), y=counter: self.on_click_delete(x, y))
+            self.tableWidget.setCellWidget(counter, 5, self.delete_button)
+            counter = counter + 1
+                    # for student in self.students:
+        #     print(student.getCIN())
+        # self.update()
+        # self.tableWidget.update()
+        # self.createTable()
+        # self.close()
+        # self.display_table =App(self.file_name)
+        # self.display_table.show()
         # self.tableWidget.update()
 if __name__ == '__main__':
     app = QApplication(sys.argv)
