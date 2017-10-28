@@ -54,6 +54,7 @@ class MainMenu(QWidget):
         change_file.setIconSize(QSize(20, 20))
         change_file.setMaximumSize(25, 22.5)
         change_file.move(432.5, 230)
+        change_file.clicked.connect(self.change_file)
 
         button_submit = QPushButton("", self)
         button_submit.setIcon(QIcon('go.png'))
@@ -95,6 +96,8 @@ class MainMenu(QWidget):
 
         if hours < 12:
             am_pm = 0
+        elif hours == 12:
+            am_pm = 1
         else:
             hours = hours - 12
             am_pm = 1
@@ -111,6 +114,14 @@ class MainMenu(QWidget):
     def show_table(self):
         self.display_table = Display_Roster.App(self.file_name)
         self.display_table.show()
+
+    def change_file(self):
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+        files, _ = QFileDialog.getOpenFileNames(self, "QFileDialog.getOpenFileNames()", "",
+                                                "All Files (*);;Python Files (*.py)", options=options)
+        if files:
+            self.file_name = files[0]
 
 
 if __name__ == '__main__':
