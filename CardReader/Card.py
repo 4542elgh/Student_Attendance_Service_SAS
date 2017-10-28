@@ -1,30 +1,19 @@
-import usb.core
-import usb.util
 
-# find our device
-dev = usb.core.find(idVendor=0xfffe, idProduct=0x0001)
 
-# was it found?
-if dev is None:
-    raise ValueError('Device not found')
+import re
+def paste_string():
+    string = input("Please swipe the card")
 
-# set the active configuration. With no arguments, the first
-# configuration will be the active one
-dev.set_configuration()
+    split = string.split("^")
 
-# get an endpoint instance
-cfg = dev.get_active_configuration()
-intf = cfg[(0,0)]
+    name = split[1]
 
-ep = usb.util.find_descriptor(
-    intf,
-    # match the first OUT endpoint
-    custom_match = \
-    lambda e: \
-        usb.util.endpoint_direction(e.bEndpointAddress) == \
-        usb.util.ENDPOINT_OUT)
+    forward_slash = split[1].find('/')
+    first_name = name[forward_slash + 1:len(name)]
+    last_name = name[0:forward_slash]
+    three = split[2]
+    cin = three[len(three) - 10:len(three) - 1]
+    print("First Name: " + first_name + " Last Name: " + last_name + " CIN: " + cin)
 
-assert ep is not None
 
-# write the data
-ep.write('test')
+paste_string()
