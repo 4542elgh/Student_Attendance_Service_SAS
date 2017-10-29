@@ -1,7 +1,7 @@
 import sys
 import datetime
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel
-from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import QTimer, Qt
 
 
 class StudentLogin(QWidget):
@@ -13,6 +13,8 @@ class StudentLogin(QWidget):
         self.width = 1200
         self.height = 515
         self.count = 100
+        self.string = ""
+        self.counter = 0
         self.init_ui()
 
     def init_ui(self):
@@ -34,6 +36,15 @@ class StudentLogin(QWidget):
         self.label.setText('Time now: %s. End time: %s. Seconds left: %s' % (
             now.strftime("%H:%M:%S"), (now + datetime.timedelta(seconds=self.count)).strftime("%H:%M:%S"), self.count))
         self.count = self.count - 1
+
+    def keyPressEvent(self, event):
+        self.string = self.string + str(event.text())
+
+        if event.key() == Qt.Key_Question and self.counter == 1:
+            print(self.string)
+            self.counter = 0
+        elif event.key() == Qt.Key_Question:
+            self.counter += 1
 
 
 if __name__ == '__main__':
