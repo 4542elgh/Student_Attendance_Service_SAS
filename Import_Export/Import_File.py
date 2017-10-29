@@ -66,5 +66,5 @@ class importXML(Import_Abstract.Import_Abstract):
             # for grandChildNode in childNode: #this is the attribute that specific student will have
             #     # xmlList.append(grandChildNode.tag)
             #     xmlList.append(grandChildNode.text)
-        Sorting_List.Sorting_List.ins_sort(xmlList)
+        Sorting_List.Sorting_List.merge_Sort(xmlList)
         return xmlList
