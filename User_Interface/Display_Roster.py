@@ -88,12 +88,13 @@ class App(QWidget):
         self.students=[]
         for row in range(self.tableWidget.rowCount()):
             self.students.append(Student.Student(self.tableWidget.item(row, 3).text(),self.tableWidget.item(row, 1).text(),self.tableWidget.item(row, 2).text(),self.tableWidget.item(row, 0).text()))
-        if self.file_type=="csv":
-            Export_File.exportCSV.exportToFile(self.students)
-        elif self.file_type=="xml":
-            Export_File.exportXML.exportToFile(self.students)
+
+        if self.file_extension=="csv":
+            Export_File.exportCSV.exportToFile(object,self.students)
+        elif self.file_extension=="xml":
+            Export_File.exportXML.exportToFile(self,self.students)
         else:
-            Export_File.exportJSON.exportToFile(self.students)
+            Export_File.exportJSON.exportToFile(self,self.students)
 
     def discard_roster_change(self):
         QMessageBox.question(self, 'Student Attendance Service', "Changes has been discarded",QMessageBox.Ok)

@@ -10,7 +10,7 @@ class exportCSV(Export_Abstract.Export_Abstract):
             writer = csv.writer(csv_Output)
             writer.writerow(["SerialNumber","FirstName","LastName","CIN"]) #first row of csv as attributes
             for subEntries in StudentList: #loop through 2d list and write row for each student entry
-                writer.writerow(subEntries)
+                writer.writerow([subEntries.getSerial(),subEntries.getFirstName(),subEntries.getLastName(),subEntries.getCIN()])
     
 class exportJSON(Export_Abstract.Export_Abstract):
     def exportToFile(self,StudentList): #inheret from parent class

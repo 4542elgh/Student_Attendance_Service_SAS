@@ -6,21 +6,12 @@ from Student import Student
 from Import_Export import Sorting_List
 class Main(): #do every entry in string, export will handle the datatype
 
-    Student1= Student.Student("1","Evan","Liu","922")
-    Student2 = Student.Student("3","Sherry","Liu","10284")
-    Student3 = Student.Student("1","Evan","Liu","1974")
-    Student4 = Student.Student("3","Sherry","Liu","1092")
-    Student5 = Student.Student("3","Sherry","Liu","4125")
-
+    temp = [Student.Student("1","Evan","Liu","304706199")]
+    Export_File.exportCSV.exportToFile(object,temp)
     #This is the method to use the import and export for 3 file types --------------------------------------------
 
     # Export_File.exportCSV.exportToFile(object,[["1","Evan","Liu","922"],["3","Sherry","Liu","10284"],["1","Evan","Liu","1974"],["3","Sherry","Liu","1092"],["3","Sherry","Liu","4125"]])
 
-    xml = [Student1,Student2,Student3,Student4,Student5]
-    Sorting_List.Sorting_List.merge_Sort(xml)
-
-    for element in xml:
-        print(element.getCIN())
 
     # print(len(xml2))
     # print(xml2[0].getFirstName())

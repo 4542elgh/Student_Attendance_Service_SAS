@@ -26,6 +26,11 @@ class PBKDF2_Algorithm():
                 temp={} #empty dict to store first input value
                 temp[username]=[salt,hash]
                 pickle.dump(temp, writeFile, protocol=pickle.HIGHEST_PROTOCOL) #write to file
+        except EOFError: #if the file doesnt exist
+            with open('../Hashing_PBKDF2/Admin_Login.pickle', 'wb') as writeFile: #empty file
+                temp={} #empty dict to store first input value
+                temp[username]=[salt,hash]
+                pickle.dump(temp, writeFile, protocol=pickle.HIGHEST_PROTOCOL) #write to file
 
     def check_Password(self,username,password): #return a true or false value indicating passsword valid or not
         with open('../Hashing_PBKDF2/Admin_Login.pickle', 'rb') as readFile:
