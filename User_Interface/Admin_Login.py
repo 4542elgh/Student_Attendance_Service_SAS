@@ -24,12 +24,13 @@ class AdminLogin(QMainWindow):
     def init_ui(self):
         print("print init here")
         self.setWindowTitle(self.title)
-        self.setGeometry(self.left, self.top, self.width, self.height)
+        # self.setGeometry(self.left, self.top, self.width, self.height)
+        self.setFixedSize(self.width,self.height)
 
         self.label_login_error = QLabel("login error,\ncheck your credentials", self)
         self.label_login_error.setStyleSheet("color:red")
         self.label_login_error.resize(300,40)
-        self.label_login_error.move(40, 415)
+        self.label_login_error.move(25, 265)
         self.label_login_error.hide()
 
         label_logo = QLabel(self)
