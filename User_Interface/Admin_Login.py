@@ -74,7 +74,7 @@ class AdminLogin(QMainWindow):
     @pyqtSlot()
     def open_window(self):
         if (self.hash.check_Password(self,self.textbox_name.text(),self.textbox_password.text())):
-            print("Login Successful")
+            print("Login Sucessful")
             admin.close()
             self.newWindow = Load_Roster.LoadRoster(self)
             self.newWindow.show()
