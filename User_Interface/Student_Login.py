@@ -1,6 +1,6 @@
 import sys
 import datetime
-from PyQt5.QtWidgets import QWidget, QApplication, QLabel
+from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QProgressBar, QStyleFactory
 from PyQt5.QtCore import QTimer, Qt
 
 
@@ -13,8 +13,7 @@ class StudentLogin(QWidget):
         self.width = 1200
         self.height = 515
         self.count = 100
-        self.string = ""
-        self.counter = 0
+        self.login = ""
         self.init_ui()
 
     def init_ui(self):
@@ -24,7 +23,9 @@ class StudentLogin(QWidget):
         self.label = QLabel(self)
         self.label.resize(1200, 40)
 
-        #self.interval = 1500
+        self.progress = QProgressBar(self)
+        self.progress.setGeometry(100, 390, 1050, 30)
+
         self.timer = QTimer()
         self.timer.timeout.connect(self.countdown)
         self.timer.start(1000)
@@ -38,13 +39,38 @@ class StudentLogin(QWidget):
         self.count = self.count - 1
 
     def keyPressEvent(self, event):
-        self.string = self.string + str(event.text())
+        self.login = self.login + str(event.text())
 
-        if event.key() == Qt.Key_Question and self.counter == 1:
-            print(self.string)
-            self.counter = 0
-        elif event.key() == Qt.Key_Question:
-            self.counter += 1
+        if event.key() == Qt.Key_Return:
+            print(self.login)
+            flc = self.decode(self.login)
+            print(flc)
+            self.login = ""
+
+    def decode(self, user_id):
+        try:
+            split = user_id.split('^')
+
+            name = split[1]
+            forward_slash = split[1].find('/')
+            first_name = name[forward_slash + 1:len(name)]
+            last_name = name[0:forward_slash]
+
+            three = split[2]
+            cin = three[len(three) - 11:len(three) - 2]
+
+            self.load_bar()
+
+            return first_name, last_name, cin
+        except IndexError:
+            print("Error!")
+
+    def load_bar(self):
+        self.complete = 0
+
+        while self.complete < 100:
+            self.complete += 0.0001
+            self.progress.setValue(self.complete)
 
 
 if __name__ == '__main__':
