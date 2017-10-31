@@ -12,7 +12,6 @@ class Sorting_List:
             j = 0
             k = 0
             while i < len(lefthalf) and j < len(righthalf):
-                # if lefthalf[i] < righthalf[j]:
                 if int(lefthalf[i].getCIN()) < int(righthalf[j].getCIN()):
                     studentList[k] = lefthalf[i]
                     i = i + 1

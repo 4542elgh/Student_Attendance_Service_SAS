@@ -36,6 +36,8 @@ class App(QWidget):
         self.save_button.clicked.connect(self.save_roster)
         self.discard_button = QPushButton('Discard')
         self.discard_button.clicked.connect(self.discard_roster_change)
+        self.add_button = QPushButton('Add')
+        self.add_button.clicked.connect(self.add_entry)
 
         hbox.addWidget(self.save_button)
         hbox.addWidget(self.discard_button)
@@ -90,11 +92,14 @@ class App(QWidget):
             self.students.append(Student.Student(self.tableWidget.item(row, 3).text(),self.tableWidget.item(row, 1).text(),self.tableWidget.item(row, 2).text(),self.tableWidget.item(row, 0).text()))
 
         if self.file_extension=="csv":
-            Export_File.exportCSV.exportToFile(object,self.students)
+            Export_File.exportCSV.exportToFile(object,self.file_name,self.students)
         elif self.file_extension=="xml":
-            Export_File.exportXML.exportToFile(self,self.students)
+            Export_File.exportXML.exportToFile(object,self.file_name,self.students)
         else:
-            Export_File.exportJSON.exportToFile(self,self.students)
+            Export_File.exportJSON.exportToFile(object,self.file_name,self.students)
+
+    def add_entry(self):
+        pass
 
     def discard_roster_change(self):
         QMessageBox.question(self, 'Student Attendance Service', "Changes has been discarded",QMessageBox.Ok)

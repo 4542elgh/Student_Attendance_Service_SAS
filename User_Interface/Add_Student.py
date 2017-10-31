@@ -15,7 +15,7 @@ class AdminLogin(QMainWindow):
         self.left = 50
         self.top = 50
         self.width = 300
-        self.height = 515
+        self.height = 250
         self.hash=PBKDF2_Algorithm.PBKDF2_Algorithm
         self.hash.generate_Hash(self,'admin','000000')
         self.init_ui()
@@ -26,50 +26,29 @@ class AdminLogin(QMainWindow):
         # self.setGeometry(self.left, self.top, self.width, self.height)
         self.setFixedSize(self.width,self.height)
 
-        self.label_login_error = QLabel("login error,\ncheck your credentials", self)
-        self.label_login_error.setStyleSheet("color:red")
-        self.label_login_error.resize(300,40)
-        self.label_login_error.move(25, 265)
-        self.label_login_error.hide()
-
-        label_logo = QLabel(self)
-        pixmap_logo = QPixmap('placeholder.png')
-        label_logo.setPixmap(pixmap_logo)
-        label_logo.resize(200, 200)
-        label_logo.move(50, 50)
-
         label_name = QLabel('Name:', self)
-        label_name.move(25, 300)
+        label_name.move(25, 130)
         self.textbox_name = QLineEdit(self)
         self.textbox_name.resize(250, 20)
-        self.textbox_name.move(25, 330)
+        self.textbox_name.move(25, 150)
 
-        label_password = QLabel('Password:', self)
-        label_password.move(25, 355)
-        self.textbox_password = QLineEdit(self)
-        self.textbox_password.resize(250, 20)
-        self.textbox_password.move(25, 385)
-        self.textbox_password.setEchoMode(QLineEdit.Password)
+        label_name = QLabel('Name:', self)
+        label_name.move(25, 130)
+        self.textbox_name = QLineEdit(self)
+        self.textbox_name.resize(250, 20)
+        self.textbox_name.move(25, 150)
 
-        login_button = QPushButton('Login', self)
-        login_button.setToolTip('Login')
-        login_button.move(175, 420)
-        login_button.clicked.connect(self.open_window)
+        label_name = QLabel('Name:', self)
+        label_name.move(25, 130)
+        self.textbox_name = QLineEdit(self)
+        self.textbox_name.resize(250, 20)
+        self.textbox_name.move(25, 150)
 
-        register_button = QPushButton('Register', self)
-        register_button.setToolTip('Register an admin account')
-        register_button.move(25, 420)
-        register_button.clicked.connect(self.open_register_admin_window)
-
-        reset_button = QPushButton('Reset', self)
-        reset_button.setToolTip('Login')
-        reset_button.move(25, 460)
-        reset_button.clicked.connect(self.open_reset_password_window)
-
-        alternate_login = QLabel('Alternate Login', self)
-        alternate_login.setText('''<a href='smileman.gif'>Alternate Login</a>''')
-        alternate_login.setOpenExternalLinks(True)
-        alternate_login.move(200, 480)
+        label_name = QLabel('Name:', self)
+        label_name.move(25, 130)
+        self.textbox_name = QLineEdit(self)
+        self.textbox_name.resize(250, 20)
+        self.textbox_name.move(25, 150)
 
     @pyqtSlot()
     def open_window(self):

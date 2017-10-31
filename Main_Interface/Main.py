@@ -6,10 +6,13 @@ from Student import Student
 from Import_Export import Sorting_List
 class Main(): #do every entry in string, export will handle the datatype
 
-    temp = [Student.Student("1","Evan","Liu","304706199")]
-    Export_File.exportCSV.exportToFile(object,temp)
+    # temp = [Student.Student("1","Evan","Liu","304706199")]
+    # Export_File.exportCSV.exportToFile(object,temp)
     #This is the method to use the import and export for 3 file types --------------------------------------------
-
+    temp={}
+    temp["Evan"]={}
+    temp["Evan"]["SerialID"]="id"
+    print(temp)
     # Export_File.exportCSV.exportToFile(object,[["1","Evan","Liu","922"],["3","Sherry","Liu","10284"],["1","Evan","Liu","1974"],["3","Sherry","Liu","1092"],["3","Sherry","Liu","4125"]])
 
 
