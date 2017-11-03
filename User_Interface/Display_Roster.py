@@ -54,7 +54,7 @@ class App(QWidget):
 
     def append_student(self, student):
         self.students.append(student)
-        print(student.toList())
+        App.generate_Table(self)
 
     def parse_file(self):
         if self.file_extension == "csv":
@@ -81,7 +81,9 @@ class App(QWidget):
         # self.delete_button.clicked.connect(lambda state, x=student.getCIN(), y=counter: self.on_click_delete(x, y))
 
     def generate_Table(self):
+        print("student list length",len(self.students))
         counter = 0
+        self.tableWidget.setRowCount(len(self.students))
         for student in self.students:
             self.tableWidget.setItem(counter, 0, QTableWidgetItem(student.getCIN()))
             self.tableWidget.setItem(counter, 1, QTableWidgetItem(student.getFirstName()))
@@ -108,7 +110,6 @@ class App(QWidget):
     def add_entry(self):
         self.add_student = Add_Student.Add_Student(self)
         self.add_student.show()
-
 
     def discard_roster_change(self):
         QMessageBox.question(self, 'Student Attendance Service', "Changes has been discarded",QMessageBox.Ok)
