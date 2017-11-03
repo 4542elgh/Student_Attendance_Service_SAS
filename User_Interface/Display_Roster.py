@@ -5,6 +5,7 @@ from PyQt5 import QtCore
 from Import_Export import Import_File,Export_File
 from Add_Edit_Delete import ModifyEntry
 from Student import Student
+from User_Interface import Add_Student
 
 class App(QWidget):
     def __init__(self, file_name):
@@ -39,8 +40,10 @@ class App(QWidget):
         self.add_button = QPushButton('Add')
         self.add_button.clicked.connect(self.add_entry)
 
+        hbox.addWidget(self.add_button)
         hbox.addWidget(self.save_button)
         hbox.addWidget(self.discard_button)
+
         self.layout.addStretch(1)
 
         self.layout.addLayout(hbox)
@@ -49,9 +52,13 @@ class App(QWidget):
         # self.tableWidget.doubleClicked(self.on_click)
         self.show()
 
+    def append_student(self, student):
+        self.students.append(student)
+        print(student.toList())
+
     def parse_file(self):
         if self.file_extension == "csv":
-            self.file_type="csv"
+            self.file_type = "csv"
             return Import_File.importCSV().toList(self.file_name)
 
         elif self.file_extension == "xml":
@@ -99,7 +106,9 @@ class App(QWidget):
             Export_File.exportJSON.exportToFile(object,self.file_name,self.students)
 
     def add_entry(self):
-        pass
+        self.add_student = Add_Student.Add_Student(self)
+        self.add_student.show()
+
 
     def discard_roster_change(self):
         QMessageBox.question(self, 'Student Attendance Service', "Changes has been discarded",QMessageBox.Ok)
