@@ -21,3 +21,5 @@ class readText:
     firstName = split[0][forwardSlash+1:len()]
     lastName = name[0:forwardSlash]
     cin = splitThird[len(splitThird)-10:len(splitThird)-1]
+
+    StudentName = firstName + " " + lastName
