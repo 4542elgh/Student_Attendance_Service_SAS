@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog, QLabel, QPushButton
+from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog, QLabel, QPushButton,QMessageBox,QComboBox,QAction
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QSize
 from User_Interface import Admin_Main_Menu
@@ -20,6 +20,14 @@ class LoadRoster(QWidget):
     def init_ui(self):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
+
+        start_new_label = QLabel('Start A New Roster:', self)
+        start_new_label.setFixedHeight(20)
+        start_new_label.move(65,270)
+
+        new_file = QPushButton('Start New File',self)
+        new_file.move(165, 270)
+        new_file.clicked.connect(self.save_file_names_dialog)
 
         label_filename = QLabel('Path:', self)
         label_filename.move(65, 305)
@@ -44,23 +52,36 @@ class LoadRoster(QWidget):
         button_submit.clicked.connect(self.open_set_parameter)
 
     def open_file_names_dialog(self):
-
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        files, _ = QFileDialog.getOpenFileNames(self, "QFileDialog.getOpenFileNames()", "",
-                                                "All Files (*);;Python Files (*.py)", options=options)
+        files, _ = QFileDialog.getOpenFileNames(self, "QFileDialog.getOpenFileNames()", "","All Files (*);;Comma-Separated Values (*.csv);;eXtensible Markup Language (*.xml);;Javascript Object Notation (*.json)", options=options)
         if files:
             file_name = files[0]
             line = self.findChild(QLineEdit, "line")
             line.setText(file_name)
 
-    def open_set_parameter(self):
-        self.close()
-        line = self.findChild(QLineEdit, "line")
-        self.file_pass = str(line.text())
-        self.menu = Admin_Main_Menu.MainMenu(self.file_pass)
-        self.menu.show()
+    def save_file_names_dialog(self):
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+        name, _ = QFileDialog.getSaveFileName(self, 'QFileDialog.getOpenFileNames()', "","All Files (*);;Comma-Separated Values (*.csv);;eXtensible Markup Language (*.xml);;Javascript Object Notation (*.json)", options=options)
+        if name:
+            file = open(name, 'w')
+            file.write("")
+            file.close()
+            self.close()
+            self.file_pass = str(name)
+            self.menu = Admin_Main_Menu.MainMenu(self.file_pass)
+            self.menu.show()
 
+    def open_set_parameter(self):
+        line = self.findChild(QLineEdit, "line")
+        if str(line.text())=='':
+            QMessageBox.question(self, 'Student Attendance Service', "Please select a file before proceeding", QMessageBox.Ok)
+        else:
+            self.close()
+            self.file_pass = str(line.text())
+            self.menu = Admin_Main_Menu.MainMenu(self.file_pass)
+            self.menu.show()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
