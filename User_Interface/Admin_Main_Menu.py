@@ -3,7 +3,7 @@ import time
 from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog, QLabel, QPushButton, QComboBox
 from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtCore import QSize
-from User_Interface import Display_Roster
+from User_Interface import Display_Roster,Student_Login
 
 
 class MainMenu(QWidget):
@@ -162,10 +162,14 @@ class MainMenu(QWidget):
         if files:
             self.file_name = files[0]
     def submit_time(self):
-        print(str(self.left_hours_box.currentText()))
-        print(str(self.left_minutes_box.currentText()))
-        print(str(self.right_hours_box.currentText()))
-        print(str(self.right_minutes_box.currentText()))
+        startHour=int(self.left_hours_box.currentText())
+        startMin = int(self.left_minutes_box.currentText())
+        endHour = int(self.right_hours_box.currentText())
+        endMin = int(self.right_minutes_box.currentText())
+
+        timeFrame=(endHour-startHour)*3600+(endMin-startMin)*60
+        self.menu = Student_Login.StudentLogin(timeFrame)
+        self.menu.show()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

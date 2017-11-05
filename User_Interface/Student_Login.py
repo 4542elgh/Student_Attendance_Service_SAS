@@ -5,14 +5,14 @@ from PyQt5.QtCore import QTimer, Qt
 
 
 class StudentLogin(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self ,endTime,parent=None):
         super().__init__()
         self.title = 'Student Login'
         self.left = 50
         self.top = 50
         self.width = 1200
         self.height = 515
-        self.count = 100
+        self.count = endTime
         self.login = ""
         self.init_ui()
 
@@ -32,10 +32,10 @@ class StudentLogin(QWidget):
 
     def countdown(self):
         if self.count < 1:
-            self.count = 100
+            print("Roll is over")
+            self.close()
         now = datetime.datetime.now()
-        self.label.setText('Time now: %s. End time: %s. Seconds left: %s' % (
-            now.strftime("%H:%M:%S"), (now + datetime.timedelta(seconds=self.count)).strftime("%H:%M:%S"), self.count))
+        self.label.setText('Time now: %s. End time: %s. Time left: %s:%s:%s' % (now.strftime("%H:%M:%S"), (now + datetime.timedelta(seconds=self.count)).strftime("%H:%M:%S"), (self.count//3600)%24,(self.count//60)%60,self.count%60))
         self.count = self.count - 1
 
     def keyPressEvent(self, event):
@@ -67,7 +67,6 @@ class StudentLogin(QWidget):
 
     def load_bar(self):
         self.complete = 0
-
         while self.complete < 100:
             self.complete += 0.0001
             self.progress.setValue(self.complete)
