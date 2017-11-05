@@ -54,7 +54,7 @@ class LoadRoster(QWidget):
     def open_file_names_dialog(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        files, _ = QFileDialog.getOpenFileNames(self, "QFileDialog.getOpenFileNames()", "","All Files (*);;Comma-Separated Values (*.csv);;eXtensible Markup Language (*.xml);;Javascript Object Notation (*.json)", options=options)
+        files, _ = QFileDialog.getOpenFileNames(self, "Open Roster File", "","All Files (*);;Comma-Separated Values (*.csv);;eXtensible Markup Language (*.xml);;Javascript Object Notation (*.json)", options=options)
         if files:
             file_name = files[0]
             line = self.findChild(QLineEdit, "line")
@@ -63,7 +63,7 @@ class LoadRoster(QWidget):
     def save_file_names_dialog(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        name, _ = QFileDialog.getSaveFileName(self, 'QFileDialog.getOpenFileNames()', "","All Files (*);;Comma-Separated Values (*.csv);;eXtensible Markup Language (*.xml);;Javascript Object Notation (*.json)", options=options)
+        name, _ = QFileDialog.getSaveFileName(self,"Save Roster File", "","All Files (*);;Comma-Separated Values (*.csv);;eXtensible Markup Language (*.xml);;Javascript Object Notation (*.json)", options=options)
         if name:
             file = open(name, 'w')
             file.write("")

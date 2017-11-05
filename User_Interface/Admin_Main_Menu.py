@@ -33,7 +33,7 @@ class MainMenu(QWidget):
         start_label = QLabel("Start:", self)
         start_label.move(35, 80)
 
-        self.time_box(35, 97.5, 115, 190, 100, True)
+        self.time_box(35, 97.5, 115, 190, 100, True,"StartTime")
 
         dash_label = QLabel("-", self)
         dash_label.setFont(colon_font)
@@ -42,7 +42,7 @@ class MainMenu(QWidget):
         end_label = QLabel("End:", self)
         end_label.move(275, 80)
 
-        self.time_box(275, 337.5, 355, 430, 100, False)
+        self.time_box(275, 337.5, 355, 430, 100, False,"EndTime")
 
         display_roster = QPushButton("Show Roster", self)
         display_roster.move(35, 230)
@@ -61,51 +61,90 @@ class MainMenu(QWidget):
         button_submit.setIconSize(QSize(15, 15))
         button_submit.setMaximumSize(25, 22.5)
         button_submit.move(460, 230)
-
-    def time_box(self, hbx, clx, mbx, apx, y, start):
+        button_submit.clicked.connect(self.submit_time)
+    def time_box(self, hbx, clx, mbx, apx, y, start,position):
         colon_font = QFont("Times", 32)
         time_font = QFont("Times", 18)
-
-        hours_box = QComboBox(self)
-        hours_box.setFixedSize(60, 60)
-        hours_box.setFont(time_font)
-        self.set_time(hours_box, 13)
-        #hours_box.setCurrentIndex()
-        hours_box.move(hbx, y)
 
         colon_label = QLabel(":", self)
         colon_label.setFont(colon_font)
         colon_label.move(clx, y)
 
-        minutes_box = QComboBox(self)
-        minutes_box.setFixedSize(60, 60)
-        minutes_box.setFont(time_font)
-        self.set_time(minutes_box, 60)
-        minutes_box.move(mbx, y)
+        if position=="StartTime":
+            self.left_hours_box = QComboBox(self)
+            self.left_hours_box.setFixedSize(60, 60)
+            self.left_hours_box.setFont(time_font)
+            self.set_time(self.left_hours_box, 13)
+            #hours_box.setCurrentIndex()
+            self.left_hours_box.move(hbx, y)
 
-        am_pm_box = QComboBox(self)
-        am_pm_box.setFixedSize(60, 60)
-        am_pm_box.setFont(time_font)
-        am_pm_box.addItem("AM")
-        am_pm_box.addItem("PM")
-        am_pm_box.move(apx, y)
+            self.left_minutes_box = QComboBox(self)
+            self.left_minutes_box.setFixedSize(60, 60)
+            self.left_minutes_box.setFont(time_font)
+            self.set_time(self.left_minutes_box, 60)
+            self.left_minutes_box.move(mbx, y)
 
-        hours = time.localtime()[3]
-        minutes = time.localtime()[4]
-        am_pm = None
+            self.left_am_pm_box = QComboBox(self)
+            self.left_am_pm_box.setFixedSize(60, 60)
+            self.left_am_pm_box.setFont(time_font)
+            self.left_am_pm_box.addItem("AM")
+            self.left_am_pm_box.addItem("PM")
+            self.left_am_pm_box.move(apx, y)
 
-        if hours < 12:
-            am_pm = 0
-        elif hours == 12:
-            am_pm = 1
+            hours = time.localtime()[3]
+            minutes = time.localtime()[4]
+            am_pm = None
+
+            if hours < 12:
+                am_pm = 0
+            elif hours == 12:
+                am_pm = 1
+            else:
+                hours = hours - 12
+                am_pm = 1
+
+            if start:
+                self.left_hours_box.setCurrentIndex(hours - 1)
+                self.left_minutes_box.setCurrentIndex(minutes - 1)
+                self.left_am_pm_box.setCurrentIndex(am_pm)
+
         else:
-            hours = hours - 12
-            am_pm = 1
+            self.right_hours_box = QComboBox(self)
+            self.right_hours_box.setFixedSize(60, 60)
+            self.right_hours_box.setFont(time_font)
+            self.set_time(self.right_hours_box, 13)
+            # hours_box.setCurrentIndex()
+            self.right_hours_box.move(hbx, y)
 
-        if start:
-            hours_box.setCurrentIndex(hours - 1)
-            minutes_box.setCurrentIndex(minutes - 1)
-            am_pm_box.setCurrentIndex(am_pm)
+            self.right_minutes_box = QComboBox(self)
+            self.right_minutes_box.setFixedSize(60, 60)
+            self.right_minutes_box.setFont(time_font)
+            self.set_time(self.right_minutes_box, 60)
+            self.right_minutes_box.move(mbx, y)
+
+            self.right_am_pm_box = QComboBox(self)
+            self.right_am_pm_box.setFixedSize(60, 60)
+            self.right_am_pm_box.setFont(time_font)
+            self.right_am_pm_box.addItem("AM")
+            self.right_am_pm_box.addItem("PM")
+            self.right_am_pm_box.move(apx, y)
+
+            hours = time.localtime()[3]
+            minutes = time.localtime()[4]
+            am_pm = None
+
+            if hours < 12:
+                am_pm = 0
+            elif hours == 12:
+                am_pm = 1
+            else:
+                hours = hours - 12
+                am_pm = 1
+
+            if start:
+                self.right_hours_box.setCurrentIndex(hours - 1)
+                self.right_minutes_box.setCurrentIndex(minutes - 1)
+                self.right_am_pm_box.setCurrentIndex(am_pm)
 
     def set_time(self, combobox, stop):
         for i in range(1, stop):
@@ -122,7 +161,11 @@ class MainMenu(QWidget):
                                                 "All Files (*);;Python Files (*.py)", options=options)
         if files:
             self.file_name = files[0]
-
+    def submit_time(self):
+        print(str(self.left_hours_box.currentText()))
+        print(str(self.left_minutes_box.currentText()))
+        print(str(self.right_hours_box.currentText()))
+        print(str(self.right_minutes_box.currentText()))
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
