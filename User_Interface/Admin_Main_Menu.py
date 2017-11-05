@@ -42,7 +42,7 @@ class MainMenu(QWidget):
         end_label = QLabel("End:", self)
         end_label.move(275, 80)
 
-        self.time_box(275, 337.5, 355, 430, 100, False,"EndTime")
+        self.time_box(275, 337.5, 355, 430, 100, True,"EndTime")
 
         display_roster = QPushButton("Show Roster", self)
         display_roster.move(35, 230)
