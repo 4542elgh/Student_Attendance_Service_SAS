@@ -1,22 +1,21 @@
 import sys
 import datetime
+
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QLineEdit, QPushButton
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import QUrl, pyqtSlot, QTimer
 from Export_USB import readText
-from Student import Student
+from Student import Register_Student
 
-class StudentLogin(QWidget):
+class StudentLogin(QMainWindow):
     def __init__(self, parent=None):
         super.__init__()
 
         # Frame
         self.title = "Student Login"
         self.top = 50
-        self.bottom = 50
         self.left = 50
-        self.right = 50
-        self.height = 100
+        self.height = 510
         self.width = 200
         self.login = ""
         self.count = 100 #allow 100 second for each student to log in
@@ -30,7 +29,7 @@ class StudentLogin(QWidget):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
 
-        self.readCard = readText
+       # self.readCard = readText
 
         # Set Label for the UI
         self.label = QLabel(self)
@@ -51,8 +50,8 @@ class StudentLogin(QWidget):
 
 
         # Alternate Log-In method (Fingerprint)
-        fingerprint_login = QLabel("Fingerprint Log-In")
-        fingerprint_login.move(200,480)
+      #  fingerprint_login = QLabel("Fingerprint Log-In")
+       # fingerprint_login.move(200,480)
 
 
 
@@ -86,6 +85,7 @@ class StudentLogin(QWidget):
     @pyqtSlot()
 
     def open_window(self):
+
         if self.name and self.cin:
             print("You are Check-in")
             student.close()
@@ -93,6 +93,10 @@ class StudentLogin(QWidget):
             self.label_error.show()
             print("Check-in Failed, Try Alternate Log-In Method")
 
+    def open_register_student_window(self):
+        student.close()
+        self.registerWindow = Register_Student.Register_Student(self)
+        self.registerWindow.show()
 
 
 

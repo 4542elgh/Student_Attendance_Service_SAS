@@ -23,7 +23,6 @@ class Register_Student(QMainWindow):
 
         self.cardSwipe = readText
 
-
     def _init_ui(self):
         self.setWindowTitle(self.title)
         self.geometry(self.left, self.top,self.width,self.height)
