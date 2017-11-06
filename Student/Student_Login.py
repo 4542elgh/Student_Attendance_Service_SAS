@@ -44,7 +44,7 @@ class StudentLogin(QWidget):
 
         # After Successful Student Log-in
         self.timer = QTimer()
-        self.timer.timeout().connect(self.countdown)
+        self.timer.timeout().connect(self.count_down_to_Start)
         self.timer.start(1000) # Allow 1000 second per student
 
 
@@ -56,14 +56,29 @@ class StudentLogin(QWidget):
 
         student_label = QLabel("Name: ", self)
 
-
-    def countdown(self):
-        if self.count < 1:
-            self.init_ui()
-
+    def count_down_to_Start(self):
+        if self.startTime < 1:
+            self.init_count_end()
         now = datetime.datetime.now()
-        self.label.setText("Time now: %s. End Time: %s. Second Left: %s" %(
-            now.strftime("%H:%M:%S"), (now+datetime.timedelta(seconds=self.count)).strftime("%H:%M:%S"),self.count ))
+        self.label.setText('Time now: %s. End time: %s. Time Until Start: %02d:%02d:%02d' % (
+        now.strftime("%H:%M:%S"), (now + datetime.timedelta(seconds=self.startTime)).strftime("%H:%M:%S"),
+        (self.startTime // 3600) % 24, (self.startTime // 60) % 60, self.startTime % 60))
+        self.startTime = self.startTime - 1
+
+    def init_count_end(self):
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.count_down_to_End)
+        self.timer.start(1000)
+
+    def count_down_to_End(self):
+        if self.count < 1:
+            print("Roll is over")
+            self.close()
+            self.timer.stop()
+        now = datetime.datetime.now()
+        self.label.setText('Time now: %s. End time: %s. Time left: %02d:%02d:%02d' % (
+        now.strftime("%H:%M:%S"), (now + datetime.timedelta(seconds=self.count)).strftime("%H:%M:%S"),
+        (self.count // 3600) % 24, (self.count // 60) % 60, self.count % 60))
         self.count = self.count - 1
 
 
