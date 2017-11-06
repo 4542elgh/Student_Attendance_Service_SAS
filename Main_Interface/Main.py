@@ -9,12 +9,14 @@ class Main(): #do every entry in string, export will handle the datatype
     # temp = [Student.Student("1","Evan","Liu","304706199")]
     # Export_File.exportCSV.exportToFile(object,temp)
     #This is the method to use the import and export for 3 file types --------------------------------------------
-    temp={}
-    temp["Evan"]={}
-    temp["Evan"]["SerialID"]="id"
-    print(temp)
+    # temp={}
+    # temp["Evan"]={}
+    # temp["Evan"]["SerialID"]="id"
+    # print(temp)
     # Export_File.exportCSV.exportToFile(object,[["1","Evan","Liu","922"],["3","Sherry","Liu","10284"],["1","Evan","Liu","1974"],["3","Sherry","Liu","1092"],["3","Sherry","Liu","4125"]])
-
+    file_name="C:/Users/Huahuo/Desktop/roster.csv"
+    file_prefix = file_name[0:file_name.rfind("/")]
+    print(file_prefix)
 
     # print(len(xml2))
     # print(xml2[0].getFirstName())

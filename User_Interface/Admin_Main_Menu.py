@@ -4,19 +4,21 @@ from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QLineEdit, QFil
 from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtCore import QSize
 from User_Interface import Display_Roster,Student_Login
+from Import_Export import Import_File
 
 
 class MainMenu(QWidget):
 
-    # def __init__(self, file_name,parent=None):
-    def __init__(self, parent=None):
+    def __init__(self, file_name,parent=None):
         super().__init__()
         self.title = 'Main Menu'
         self.left = 200
         self.top = 200
         self.width = 525
         self.height = 300
-        # self.file_name = file_name
+        self.file_name = file_name
+        self.file_extension = self.file_name[self.file_name.rfind(".") + 1:]
+        self.studentList=self.parse_file()
         self.init_ui()
 
     def init_ui(self):
@@ -188,8 +190,24 @@ class MainMenu(QWidget):
             QMessageBox.question(self, 'Student Attendance Service',"Please select an end time greater than equal to current time", QMessageBox.Ok)
         else:
             print(timeFrame)
-            self.menu = Student_Login.StudentLogin(startTime,timeFrame)
+            self.menu = Student_Login.StudentLogin(startTime,timeFrame,self.file_name,self.studentList)
             self.menu.show()
+
+
+
+    def parse_file(self):
+        if self.file_extension == "csv":
+            self.file_type = "csv"
+            return Import_File.importCSV().toList(self.file_name)
+
+        elif self.file_extension == "xml":
+            self.file_type = "xml"
+            return Import_File.importXML.toList(object, self.file_name)
+
+        elif self.file_extension == "json":
+            self.file_type = "json"
+            return Import_File.importJSON.toList(object, self.file_name)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

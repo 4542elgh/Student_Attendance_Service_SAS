@@ -6,7 +6,8 @@ from User_Interface import Load_Roster
 from User_Interface import Register_Admin
 from User_Interface import Reset_Password
 from Hashing_PBKDF2 import PBKDF2_Algorithm
-
+from User_Interface import Attendance_For_The_Day
+from Student import Student
 
 class AdminLogin(QMainWindow):
     def __init__(self, parent=None):
@@ -23,7 +24,6 @@ class AdminLogin(QMainWindow):
     def init_ui(self):
         print("print init here")
         self.setWindowTitle(self.title)
-        # self.setGeometry(self.left, self.top, self.width, self.height)
         self.setFixedSize(self.width,self.height)
 
         self.label_login_error = QLabel("login error,\ncheck your credentials", self)
@@ -89,9 +89,10 @@ class AdminLogin(QMainWindow):
 
     def open_reset_password_window(self):
         admin.close()
-        self.resetWindow = Reset_Password.Reset_Password(self)
-        self.resetWindow.show()
-
+        # self.resetWindow = Reset_Password.Reset_Password(self)
+        # self.resetWindow.show()
+        self.summary=Attendance_For_The_Day.Attendance_For_The_Day("C:/Users/Huahuo/Desktop/",[Student.Student("1","ming","Liu","304706","onTime")])
+        self.summary.show()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

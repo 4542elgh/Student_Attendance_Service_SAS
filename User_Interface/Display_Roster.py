@@ -93,7 +93,7 @@ class App(QWidget):
             self.delete_button.clicked.connect(lambda state, x=student.getCIN(), y=counter: self.on_click_delete(x, y))
             self.tableWidget.setCellWidget(counter, 4, self.delete_button)
             counter = counter + 1
-
+            print(student.getAttendance())
     @pyqtSlot()
     def save_roster(self):
         self.students=[]

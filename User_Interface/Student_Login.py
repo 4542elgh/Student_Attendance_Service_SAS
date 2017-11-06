@@ -1,11 +1,12 @@
 import sys
 import datetime
-from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QProgressBar, QStyleFactory
+from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QProgressBar, QStyleFactory,QMessageBox
 from PyQt5.QtCore import QTimer, Qt
+from User_Interface import  Attendance_For_The_Day
 
 
 class StudentLogin(QWidget):
-    def __init__(self ,startTime,endTime,parent=None):
+    def __init__(self ,startTime,endTime,file_path,studentList,parent=None):
         super().__init__()
         self.title = 'Student Login'
         self.left = 50
@@ -14,6 +15,10 @@ class StudentLogin(QWidget):
         self.height = 515
         self.count = endTime
         self.startTime=startTime
+
+        self.file_path=file_path
+        self.studentList=studentList
+
         self.login = ""
         self.init_ui()
 
@@ -45,7 +50,9 @@ class StudentLogin(QWidget):
 
     def count_down_to_End(self):
         if self.count < 1:
-            print("Roll is over")
+            QMessageBox.question(self, 'Student Attendance Service',"Attendance for xxx class has ended", QMessageBox.Ok)
+            self.summary=Attendance_For_The_Day.Attendance_For_The_Day(self.file_path,self.studentList)
+            self.summary.show()
             self.close()
             self.timer.stop()
         now = datetime.datetime.now()
