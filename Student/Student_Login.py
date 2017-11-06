@@ -72,7 +72,7 @@ class StudentLogin(QWidget):
 
     def count_down_to_End(self):
         if self.count < 1:
-            print("Roll is over")
+            print("Timestamp is over")
             self.close()
             self.timer.stop()
         now = datetime.datetime.now()
