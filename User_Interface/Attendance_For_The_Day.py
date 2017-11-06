@@ -1,5 +1,6 @@
-import sys
 import os
+import sys
+import time
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QAction, QTableWidget, QTableWidgetItem, QVBoxLayout, QPushButton,QHBoxLayout,QMessageBox,QLabel
 from PyQt5.QtCore import pyqtSlot,QEvent
 from PyQt5 import QtCore
@@ -7,7 +8,8 @@ from Import_Export import Import_File,Export_File
 from Add_Edit_Delete import ModifyEntry
 from Student import Student
 from User_Interface import Add_Student
-import time
+import csv
+
 
 class Attendance_For_The_Day(QWidget):
     def __init__(self, file_path,studentList):
@@ -21,6 +23,7 @@ class Attendance_For_The_Day(QWidget):
         self.file_path=file_path
 
         self.studentList=studentList
+
         # self.studentList = [Student.Student("1111","ming","liu","302102","onTime")]
         self.initUI()
 
@@ -76,8 +79,21 @@ class Attendance_For_The_Day(QWidget):
 
     def create_dir(self):
         file_path_prefix = self.file_path[0:self.file_path.rfind("/")]
-        if not os.path.exists(file_path_prefix+"/Attendance"):
-            os.makedirs(file_path_prefix+"/Attendance")
+        file_name = self.file_path[self.file_path.rfind("/") + 1:self.file_path.rfind(".")]
+        path = file_path_prefix+"/Attendance_For_"+file_name+"/"+str(time.localtime()[1])+"_"+str(time.localtime()[2])+"_"+str(time.localtime()[0])+"_attendance.csv"
+        if not os.path.exists(file_path_prefix+"/Attendance_For_"+file_name):
+            os.makedirs(file_path_prefix+"/Attendance_For_"+file_name)
+            with open(path, "w", newline='') as csv_Output:
+                writer = csv.writer(csv_Output)
+                writer.writerow(["CIN", "FirstName", "LastName", "Attendance"])  # first row of csv as attributes
+                for subEntries in self.studentList:  # loop through 2d list and write row for each student entry
+                    writer.writerow([subEntries.getCIN(), subEntries.getFirstName(), subEntries.getLastName(), subEntries.getAttendance()])
+        else:
+            with open(path, "w", newline='') as csv_Output:
+                writer = csv.writer(csv_Output)
+                writer.writerow(["CIN", "FirstName", "LastName", "Attendance"])  # first row of csv as attributes
+                for subEntries in self.studentList:  # loop through 2d list and write row for each student entry
+                    writer.writerow([subEntries.getCIN(), subEntries.getFirstName(), subEntries.getLastName(), subEntries.getAttendance()])
 
     @pyqtSlot()
     def save_roster(self):
