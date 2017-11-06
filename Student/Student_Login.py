@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QLineEdi
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import QUrl, pyqtSlot, QTimer
 from Export_USB import readText
+from Student import Student
 
 class StudentLogin(QWidget):
     def __init__(self, parent=None):
@@ -29,6 +30,7 @@ class StudentLogin(QWidget):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
 
+        self.readCard = readText
 
         # Set Label for the UI
         self.label = QLabel(self)
@@ -54,7 +56,7 @@ class StudentLogin(QWidget):
 
 
 
-        student_label = QLabel("Name: ", self)
+
 
     def count_down_to_Start(self):
         if self.startTime < 1:
@@ -81,9 +83,10 @@ class StudentLogin(QWidget):
         (self.count // 3600) % 24, (self.count // 60) % 60, self.count % 60))
         self.count = self.count - 1
 
+    @pyqtSlot()
 
     def open_window(self):
-        if(self.name):
+        if self.name and self.cin:
             print("You are Check-in")
             student.close()
         else:
