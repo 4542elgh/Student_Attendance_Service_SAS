@@ -3,7 +3,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QLineEdit, QPushButton, QMessageBox
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import QUrl, pyqtSlot
-from Hashing_PBKDF2 import PBKDF2_Algorithm
+#from Hashing_PBKDF2 import PBKDF2_Algorithm
 from Student import Student_Login
 from Export_USB import readText
 
@@ -16,7 +16,7 @@ class Register_Student(QMainWindow):
         self.top = 50
         self.width = 200
         self.height = 500
-        self.hash = PBKDF2_Algorithm.PBKDF2_Algorithm
+        #self.hash = PBKDF2_Algorithm.PBKDF2_Algorithm
 
         self.init.ui()
         #self.studentWindow = Student_Window
