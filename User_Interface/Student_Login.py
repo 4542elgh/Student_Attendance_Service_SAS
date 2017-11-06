@@ -5,7 +5,7 @@ from PyQt5.QtCore import QTimer, Qt
 
 
 class StudentLogin(QWidget):
-    def __init__(self ,endTime,parent=None):
+    def __init__(self ,startTime,endTime,parent=None):
         super().__init__()
         self.title = 'Student Login'
         self.left = 50
@@ -13,6 +13,7 @@ class StudentLogin(QWidget):
         self.width = 1200
         self.height = 515
         self.count = endTime
+        self.startTime=startTime
         self.login = ""
         self.init_ui()
 
@@ -27,15 +28,28 @@ class StudentLogin(QWidget):
         self.progress.setGeometry(100, 390, 1050, 30)
 
         self.timer = QTimer()
-        self.timer.timeout.connect(self.countdown)
+        self.timer.timeout.connect(self.count_down_to_Start)
         self.timer.start(1000)
 
-    def countdown(self):
+    def count_down_to_Start(self):
+        if self.startTime < 1:
+            self.init_count_end()
+        now = datetime.datetime.now()
+        self.label.setText('Time now: %s. End time: %s. Time Until Start: %02d:%02d:%02d' % (now.strftime("%H:%M:%S"), (now + datetime.timedelta(seconds=self.startTime)).strftime("%H:%M:%S"), (self.startTime//3600)%24,(self.startTime//60)%60,self.startTime%60))
+        self.startTime = self.startTime - 1
+
+    def init_count_end(self):
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.count_down_to_End)
+        self.timer.start(1000)
+
+    def count_down_to_End(self):
         if self.count < 1:
             print("Roll is over")
             self.close()
+            self.timer.stop()
         now = datetime.datetime.now()
-        self.label.setText('Time now: %s. End time: %s. Time left: %s:%s:%s' % (now.strftime("%H:%M:%S"), (now + datetime.timedelta(seconds=self.count)).strftime("%H:%M:%S"), (self.count//3600)%24,(self.count//60)%60,self.count%60))
+        self.label.setText('Time now: %s. End time: %s. Time left: %02d:%02d:%02d' % (now.strftime("%H:%M:%S"), (now + datetime.timedelta(seconds=self.count)).strftime("%H:%M:%S"), (self.count//3600)%24,(self.count//60)%60,self.count%60))
         self.count = self.count - 1
 
     def keyPressEvent(self, event):

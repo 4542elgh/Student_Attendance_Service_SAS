@@ -1,6 +1,6 @@
 import sys
 import time
-from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog, QLabel, QPushButton, QComboBox
+from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog, QLabel, QPushButton, QComboBox,QMessageBox
 from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtCore import QSize
 from User_Interface import Display_Roster,Student_Login
@@ -8,14 +8,15 @@ from User_Interface import Display_Roster,Student_Login
 
 class MainMenu(QWidget):
 
-    def __init__(self, file_name,parent=None):
+    # def __init__(self, file_name,parent=None):
+    def __init__(self, parent=None):
         super().__init__()
         self.title = 'Main Menu'
         self.left = 200
         self.top = 200
         self.width = 525
         self.height = 300
-        self.file_name = file_name
+        # self.file_name = file_name
         self.init_ui()
 
     def init_ui(self):
@@ -162,14 +163,33 @@ class MainMenu(QWidget):
         if files:
             self.file_name = files[0]
     def submit_time(self):
-        startHour=int(self.left_hours_box.currentText())
-        startMin = int(self.left_minutes_box.currentText())
-        endHour = int(self.right_hours_box.currentText())
-        endMin = int(self.right_minutes_box.currentText())
+        if str(self.left_am_pm_box.currentText())=="PM":
+            startHour=int(self.left_hours_box.currentText())+12
+            startMin = int(self.left_minutes_box.currentText())
+        else:
+            startHour = int(self.left_hours_box.currentText())
+            startMin = int(self.left_minutes_box.currentText())
 
-        timeFrame=(endHour-startHour)*3600+(endMin-startMin)*60
-        self.menu = Student_Login.StudentLogin(timeFrame)
-        self.menu.show()
+        if str(self.right_am_pm_box.currentText()) == "PM":
+            endHour = int(self.right_hours_box.currentText())+12
+            endMin = int(self.right_minutes_box.currentText())
+        else:
+            endHour = int(self.right_hours_box.currentText())
+            endMin = int(self.right_minutes_box.currentText())
+
+        startTime=(startHour-int(time.localtime()[3]))*3600+ (startMin-1-int(time.localtime()[4]))*60+(59-int(time.localtime()[5])) # do math to get the time to start in contrast to real time (base on button clicked)
+        if startTime<0: #if the prof want to start immediately
+            timeFrame = (endHour - startHour) * 3600 + (endMin - startMin - 1) * 60 + (59 - int(time.localtime()[5]))-1 # second will be in 0 position based on his time to click the button
+        else: #if the prof want to wait
+            timeFrame = (endHour - startHour) * 3600 + (endMin - startMin)*60-1 #since the waiting time counts to 0 sec, the timeframe only need to keep track of min and hour
+        if timeFrame<0:
+            QMessageBox.question(self, 'Student Attendance Service', "Please select an end time greater than starting time", QMessageBox.Ok)
+        elif startHour<time.localtime()[3] or startMin<time.localtime()[4]:
+            QMessageBox.question(self, 'Student Attendance Service',"Please select an end time greater than equal to current time", QMessageBox.Ok)
+        else:
+            print(timeFrame)
+            self.menu = Student_Login.StudentLogin(startTime,timeFrame)
+            self.menu.show()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
