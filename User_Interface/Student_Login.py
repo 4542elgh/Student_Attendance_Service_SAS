@@ -8,6 +8,7 @@ from User_Interface import  Attendance_For_The_Day
 class StudentLogin(QWidget):
     def __init__(self ,startTime,endTime,file_path,studentList,parent=None):
         super().__init__()
+        print(len(studentList))
         self.title = 'Student Login'
         self.left = 50
         self.top = 50
@@ -18,6 +19,9 @@ class StudentLogin(QWidget):
 
         self.file_path=file_path
         self.studentList=studentList
+
+        for student in self.studentList:
+            print(student.getCIN())
 
         self.login = ""
         self.init_ui()

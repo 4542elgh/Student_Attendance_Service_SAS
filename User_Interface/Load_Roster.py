@@ -67,9 +67,11 @@ class LoadRoster(QWidget):
         if name:
             file = open(name, 'w')
             file.write("")
+            file.flush()
             file.close()
             self.close()
             self.file_pass = str(name)
+            print(self.file_pass)
             self.menu = Admin_Main_Menu.MainMenu(self.file_pass)
             self.menu.show()
 

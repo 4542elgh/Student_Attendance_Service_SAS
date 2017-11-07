@@ -65,6 +65,7 @@ class MainMenu(QWidget):
         button_submit.setMaximumSize(25, 22.5)
         button_submit.move(460, 230)
         button_submit.clicked.connect(self.submit_time)
+
     def time_box(self, hbx, clx, mbx, apx, y, start,position):
         colon_font = QFont("Times", 32)
         time_font = QFont("Times", 18)
@@ -154,7 +155,8 @@ class MainMenu(QWidget):
             combobox.addItem(str(i))
 
     def show_table(self):
-        self.display_table = Display_Roster.App(self.file_name)
+        print(len(self.studentList))
+        self.display_table = Display_Roster.App(self.file_name,self)
         self.display_table.show()
 
     def change_file(self):
@@ -193,8 +195,6 @@ class MainMenu(QWidget):
             self.menu = Student_Login.StudentLogin(startTime,timeFrame,self.file_name,self.studentList)
             self.menu.show()
 
-
-
     def parse_file(self):
         if self.file_extension == "csv":
             self.file_type = "csv"
@@ -208,6 +208,8 @@ class MainMenu(QWidget):
             self.file_type = "json"
             return Import_File.importJSON.toList(object, self.file_name)
 
+    def set_student_list(self, student_list):
+        self.studentList = student_list
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

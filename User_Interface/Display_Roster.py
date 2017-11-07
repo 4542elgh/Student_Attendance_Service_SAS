@@ -8,7 +8,7 @@ from Student import Student
 from User_Interface import Add_Student
 
 class App(QWidget):
-    def __init__(self, file_name):
+    def __init__(self, file_name, admin_main):
         super().__init__()
         self.setWindowModality(QtCore.Qt.ApplicationModal)
         self.left = 200
@@ -16,6 +16,7 @@ class App(QWidget):
         self.width = 665
         self.height = 400
         self.file_name = file_name
+        self.admin_menu = admin_main
         self.file_prefix=self.file_name[self.file_name.rfind("/")+1:self.file_name.rfind(".")]
         self.file_extension = self.file_name[self.file_name.rfind(".") + 1:]
         self.students = self.parse_file()
@@ -94,6 +95,7 @@ class App(QWidget):
             self.tableWidget.setCellWidget(counter, 4, self.delete_button)
             counter = counter + 1
             print(student.getAttendance())
+
     @pyqtSlot()
     def save_roster(self):
         self.students=[]
@@ -106,6 +108,8 @@ class App(QWidget):
             Export_File.exportXML.exportToFile(object,self.file_name,self.students)
         else:
             Export_File.exportJSON.exportToFile(object,self.file_name,self.students)
+        self.admin_menu.set_student_list(self.students)
+        self.close()
 
     def add_entry(self):
         self.add_student = Add_Student.Add_Student(self)
