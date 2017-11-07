@@ -78,14 +78,14 @@ class MainMenu(QWidget):
             self.left_hours_box = QComboBox(self)
             self.left_hours_box.setFixedSize(60, 60)
             self.left_hours_box.setFont(time_font)
-            self.set_time(self.left_hours_box, 13)
+            self.set_time(self.left_hours_box, 1, 13)
             #hours_box.setCurrentIndex()
             self.left_hours_box.move(hbx, y)
 
             self.left_minutes_box = QComboBox(self)
             self.left_minutes_box.setFixedSize(60, 60)
             self.left_minutes_box.setFont(time_font)
-            self.set_time(self.left_minutes_box, 60)
+            self.set_time(self.left_minutes_box, 0, 60)
             self.left_minutes_box.move(mbx, y)
 
             self.left_am_pm_box = QComboBox(self)
@@ -116,14 +116,14 @@ class MainMenu(QWidget):
             self.right_hours_box = QComboBox(self)
             self.right_hours_box.setFixedSize(60, 60)
             self.right_hours_box.setFont(time_font)
-            self.set_time(self.right_hours_box, 13)
+            self.set_time(self.right_hours_box, 1, 13)
             # hours_box.setCurrentIndex()
             self.right_hours_box.move(hbx, y)
 
             self.right_minutes_box = QComboBox(self)
             self.right_minutes_box.setFixedSize(60, 60)
             self.right_minutes_box.setFont(time_font)
-            self.set_time(self.right_minutes_box, 60)
+            self.set_time(self.right_minutes_box, 0, 60)
             self.right_minutes_box.move(mbx, y)
 
             self.right_am_pm_box = QComboBox(self)
@@ -136,6 +136,10 @@ class MainMenu(QWidget):
             hours = time.localtime()[3]
             minutes = time.localtime()[4]
             am_pm = None
+
+            if hours == 0:
+                hours = 12
+                am_pm = 0
 
             if hours < 12:
                 am_pm = 0
@@ -150,8 +154,8 @@ class MainMenu(QWidget):
                 self.right_minutes_box.setCurrentIndex(minutes - 1)
                 self.right_am_pm_box.setCurrentIndex(am_pm)
 
-    def set_time(self, combobox, stop):
-        for i in range(1, stop):
+    def set_time(self, combobox, start, stop):
+        for i in range(start, stop):
             combobox.addItem(str(i))
 
     def show_table(self):
