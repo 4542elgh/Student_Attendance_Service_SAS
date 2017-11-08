@@ -31,6 +31,11 @@ class Attendance_For_The_Day(QWidget):
         self.setGeometry(self.left, self.top, self.width, self.height)
         self.get_summary()
 
+        self.save_button = QPushButton('Close',self)
+        self.save_button.move(50,130)
+        self.save_button.resize(50,20)
+        self.save_button.clicked.connect(self.close_me)
+
         self.labelMessage = QLabel("Attendance Finished!", self)
         self.labelMessage.move(50,20)
         self.labelMessage = QLabel("On Time :", self)
@@ -57,12 +62,12 @@ class Attendance_For_The_Day(QWidget):
         self.labelMessage.move(100, 90)
         self.labelMessage.resize(50, 20)
         self.labelMessage.setStyleSheet("color:red")
-        self.save_button = QPushButton('Save',self)
-        self.save_button.move(50,130)
-        self.save_button.resize(50,20)
+
         self.show()
         self.create_dir()
 
+    def close_me(self):
+        self.close()
 
     def get_summary(self):
         self.absent = 0
@@ -107,6 +112,7 @@ class Attendance_For_The_Day(QWidget):
             Export_File.exportXML.exportToFile(object,self.file_name,self.students)
         else:
             Export_File.exportJSON.exportToFile(object,self.file_name,self.students)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

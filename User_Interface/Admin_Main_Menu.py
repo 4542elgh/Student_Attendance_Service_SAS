@@ -99,7 +99,10 @@ class MainMenu(QWidget):
             minutes = time.localtime()[4]
             am_pm = None
 
-            if hours < 12:
+            if hours == 0:
+                hours = 12
+                am_pm = 0
+            elif hours < 12:
                 am_pm = 0
             elif hours == 12:
                 am_pm = 1
@@ -109,7 +112,7 @@ class MainMenu(QWidget):
 
             if start:
                 self.left_hours_box.setCurrentIndex(hours - 1)
-                self.left_minutes_box.setCurrentIndex(minutes - 1)
+                self.left_minutes_box.setCurrentIndex(minutes)
                 self.left_am_pm_box.setCurrentIndex(am_pm)
 
         else:
@@ -140,8 +143,7 @@ class MainMenu(QWidget):
             if hours == 0:
                 hours = 12
                 am_pm = 0
-
-            if hours < 12:
+            elif hours < 12:
                 am_pm = 0
             elif hours == 12:
                 am_pm = 1
@@ -151,7 +153,7 @@ class MainMenu(QWidget):
 
             if start:
                 self.right_hours_box.setCurrentIndex(hours - 1)
-                self.right_minutes_box.setCurrentIndex(minutes - 1)
+                self.right_minutes_box.setCurrentIndex(minutes)
                 self.right_am_pm_box.setCurrentIndex(am_pm)
 
     def set_time(self, combobox, start, stop):
@@ -198,6 +200,8 @@ class MainMenu(QWidget):
             print(timeFrame)
             self.menu = Student_Login.StudentLogin(startTime,timeFrame,self.file_name,self.studentList)
             self.menu.show()
+
+        self.close()
 
     def parse_file(self):
         if self.file_extension == "csv":
