@@ -27,12 +27,6 @@ class Add_Student(QMainWindow):
         self.setWindowTitle(self.title)
         self.setFixedSize(self.width,self.height)
 
-        serialLabel = QLabel('Serial:', self)
-        serialLabel.move(25, 0)
-        self.serialBox = QLineEdit(self)
-        self.serialBox.resize(250, 20)
-        self.serialBox.move(25, 25)
-
         firstNameLabel = QLabel('First Name:', self)
         firstNameLabel.move(25, 50)
         self.firstNameBox = QLineEdit(self)
@@ -63,7 +57,7 @@ class Add_Student(QMainWindow):
 
     @pyqtSlot()
     def add(self):
-        self.display_roster.append_student(Student.Student(self.serialBox.text(), self.firstNameBox.text(), self.lastNameBox.text(), self.CINBox.text()))
+        self.display_roster.append_student(Student.Student(self.firstNameBox.text(), self.lastNameBox.text(), self.CINBox.text()))
         self.close()
 
 

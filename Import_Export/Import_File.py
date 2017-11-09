@@ -60,7 +60,7 @@ class importXML(Import_Abstract.Import_Abstract):
         root = tree.getroot()
         xmlList=[]
         for childNode in root: #parent root this is each student's header
-            xmlList.append(Student.Student(childNode[0].text, childNode[1].text, childNode[2].text, childNode[3].text))
+            xmlList.append(Student.Student(childNode[0].text, childNode[1].text, childNode[2].text,childNode[3].text))
             # print(childNode.tag,childNode.text) #node.text will give the element value (the value in between <>xxx<> )
             # temp=Student.Student()
             # for grandChildNode in childNode: #this is the attribute that specific student will have

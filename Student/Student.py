@@ -1,21 +1,22 @@
 class Student:
 
-    def __init__(self,serial,firstName,lastName,cin,attendance=None):
-        setattr(self, "serial", serial)
+    def __init__(self,firstName,lastName,cin,fingerprintIndex=None,attendance=None):
         setattr(self, "firstName", firstName)
         setattr(self, "lastName", lastName)
         setattr(self, "cin", cin)
-        self.fingerprint_ID = -1
+
+        if attendance is None:
+            setattr(self,"fingerprintIndex", "-1")
+        else:
+            setattr(self, "attendance", fingerprintIndex)
+
         if attendance is None:
             setattr(self,"attendance", "Absent")
         else:
             setattr(self, "attendance", attendance)
 
-    def get_fingerprint_id(self):
-        return self.fingerprint_ID
-
-    def set_fingerprint_id(self, index):
-        self.fingerprint_ID = index
+    def getFingerprintIndex(self):
+        return getattr(self,"fingerprintIndex")
 
     def getSerial(self):
         return getattr(self,"serial")
@@ -46,6 +47,9 @@ class Student:
 
     def setAttendance(self,attendance):
         setattr(self, "attendance",attendance)
+
+    def setFingerprintIndex(self, fingerprintIndex):
+        setattr(self, "fingerprintIndex", fingerprintIndex)
 
     def toList(self):
         return [self.serial , self.firstName , self.lastName , self.cin]
