@@ -89,7 +89,7 @@ class App(QWidget):
             self.tableWidget.setItem(counter, 0, QTableWidgetItem(student.getCIN()))
             self.tableWidget.setItem(counter, 1, QTableWidgetItem(student.getFirstName()))
             self.tableWidget.setItem(counter, 2, QTableWidgetItem(student.getLastName()))
-            self.tableWidget.setItem(counter, 3, QTableWidgetItem(student.getSerial()))
+            self.tableWidget.setItem(counter, 3, QTableWidgetItem(student.getFingerprintIndex()))
             self.delete_button = QPushButton('Delete')
             self.delete_button.clicked.connect(lambda state, x=student.getCIN(), y=counter: self.on_click_delete(x, y))
             self.tableWidget.setCellWidget(counter, 4, self.delete_button)

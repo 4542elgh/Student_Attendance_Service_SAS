@@ -60,7 +60,6 @@ class Add_Student(QMainWindow):
         self.display_roster.append_student(Student.Student(self.firstNameBox.text(), self.lastNameBox.text(), self.CINBox.text()))
         self.close()
 
-
     def discard(self):
         QMessageBox.question(self, 'Student Attendance Service', "Changes has been discarded", QMessageBox.Ok)
         self.close()

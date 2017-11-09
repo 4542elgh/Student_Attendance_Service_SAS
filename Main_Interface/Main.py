@@ -10,6 +10,10 @@ import csv
 from Student import Student
 
 class Main(): #do every entry in string, export will handle the datatype
+        stu1=Student.Student("ming","Liu","30012903")
+        print(stu1.getCIN())
+        print(stu1.getFingerprintIndex())
+
 
     # temp = [Student.Student("1","Evan","Liu","304706199")]
     # Export_File.exportCSV.exportToFile(object,temp)
@@ -19,28 +23,28 @@ class Main(): #do every entry in string, export will handle the datatype
     # temp["Evan"]["SerialID"]="id"
     # print(temp)
     # Export_File.exportCSV.exportToFile(object,[["1","Evan","Liu","922"],["3","Sherry","Liu","10284"],["1","Evan","Liu","1974"],["3","Sherry","Liu","1092"],["3","Sherry","Liu","4125"]])
-    file_name="C:/Users/Huahuo/Desktop/roster.csv"
-    studentList = [Student.Student("1", "ming", "liu", "304", "onTime")]
-    file_path_prefix = file_name[0:file_name.rfind("/")]
-    file_name = file_name[file_name.rfind("/") + 1:file_name.rfind(".")]
-
-
-    path = file_path_prefix + "/Attendance_For_" + file_name + "/" + str(time.localtime()[1]) + "_" + str(time.localtime()[2]) + "_" + str(time.localtime()[0]) + "_attendance.csv"
-    if not os.path.exists(file_path_prefix + "/Attendance_For_" + file_name):
-        os.makedirs(file_path_prefix + "/Attendance_For_" + file_name)
-        with open(path, "w", newline='') as csv_Output:
-            writer = csv.writer(csv_Output)
-            writer.writerow(["CIN", "FirstName", "LastName", "Attendance"])  # first row of csv as attributes
-            for subEntries in studentList:  # loop through 2d list and write row for each student entry
-                writer.writerow([subEntries.getCIN(), subEntries.getFirstName(), subEntries.getLastName(),
-                                 subEntries.getAttendance()])
-    else:
-        with open(path, "w", newline='') as csv_Output:
-            writer = csv.writer(csv_Output)
-            writer.writerow(["CIN", "FirstName", "LastName", "Attendance"])  # first row of csv as attributes
-            for subEntries in studentList:  # loop through 2d list and write row for each student entry
-                writer.writerow([subEntries.getCIN(), subEntries.getFirstName(), subEntries.getLastName(),
-                                 subEntries.getAttendance()])
+    # file_name="C:/Users/Huahuo/Desktop/roster.csv"
+    # studentList = [Student.Student("1", "ming", "liu", "304", "onTime")]
+    # file_path_prefix = file_name[0:file_name.rfind("/")]
+    # file_name = file_name[file_name.rfind("/") + 1:file_name.rfind(".")]
+    #
+    #
+    # path = file_path_prefix + "/Attendance_For_" + file_name + "/" + str(time.localtime()[1]) + "_" + str(time.localtime()[2]) + "_" + str(time.localtime()[0]) + "_attendance.csv"
+    # if not os.path.exists(file_path_prefix + "/Attendance_For_" + file_name):
+    #     os.makedirs(file_path_prefix + "/Attendance_For_" + file_name)
+    #     with open(path, "w", newline='') as csv_Output:
+    #         writer = csv.writer(csv_Output)
+    #         writer.writerow(["CIN", "FirstName", "LastName", "Attendance"])  # first row of csv as attributes
+    #         for subEntries in studentList:  # loop through 2d list and write row for each student entry
+    #             writer.writerow([subEntries.getCIN(), subEntries.getFirstName(), subEntries.getLastName(),
+    #                              subEntries.getAttendance()])
+    # else:
+    #     with open(path, "w", newline='') as csv_Output:
+    #         writer = csv.writer(csv_Output)
+    #         writer.writerow(["CIN", "FirstName", "LastName", "Attendance"])  # first row of csv as attributes
+    #         for subEntries in studentList:  # loop through 2d list and write row for each student entry
+    #             writer.writerow([subEntries.getCIN(), subEntries.getFirstName(), subEntries.getLastName(),
+    #                              subEntries.getAttendance()])
 
     # print(len(xml2))
     # print(xml2[0].getFirstName())
