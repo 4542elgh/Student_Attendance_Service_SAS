@@ -73,9 +73,9 @@ class App(QWidget):
     def createTable(self):
         self.tableWidget = QTableWidget()
         self.tableWidget.setRowCount(len(self.students))  # get the total # of student list length
-        self.tableWidget.setColumnCount(5)
+        self.tableWidget.setColumnCount(4)
         self.tableWidget.setFixedHeight(325)
-        self.tableWidget.setHorizontalHeaderLabels("CIN;First Name;Last Name;Serial Number;Delete".split(";"))
+        self.tableWidget.setHorizontalHeaderLabels("CIN;First Name;Last Name;Delete".split(";"))
         App.generate_Table(self)
 
         # self.layout.addWidget(self.discard_button)
@@ -89,10 +89,9 @@ class App(QWidget):
             self.tableWidget.setItem(counter, 0, QTableWidgetItem(student.getCIN()))
             self.tableWidget.setItem(counter, 1, QTableWidgetItem(student.getFirstName()))
             self.tableWidget.setItem(counter, 2, QTableWidgetItem(student.getLastName()))
-            self.tableWidget.setItem(counter, 3, QTableWidgetItem(student.getFingerprintIndex()))
             self.delete_button = QPushButton('Delete')
             self.delete_button.clicked.connect(lambda state, x=student.getCIN(), y=counter: self.on_click_delete(x, y))
-            self.tableWidget.setCellWidget(counter, 4, self.delete_button)
+            self.tableWidget.setCellWidget(counter, 3, self.delete_button)
             counter = counter + 1
             print(student.getAttendance())
 
@@ -100,7 +99,7 @@ class App(QWidget):
     def save_roster(self):
         self.students=[]
         for row in range(self.tableWidget.rowCount()):
-            self.students.append(Student.Student(self.tableWidget.item(row, 3).text(),self.tableWidget.item(row, 1).text(),self.tableWidget.item(row, 2).text(),self.tableWidget.item(row, 0).text()))
+            self.students.append(Student.Student(self.tableWidget.item(row, 1).text(),self.tableWidget.item(row, 2).text(),self.tableWidget.item(row, 0).text()))
 
         if self.file_extension=="csv":
             Export_File.exportCSV.exportToFile(object,self.file_name,self.students)
@@ -124,8 +123,6 @@ class App(QWidget):
             if student.getCIN() == cin:
                 self.tableWidget.removeRow(rowNum)
                 self.students.remove(student)
-                print(cin)
-                print(rowNum)
         App.generate_Table(self)
 
 if __name__ == '__main__':
