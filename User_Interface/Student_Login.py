@@ -2,6 +2,7 @@ import sys
 import datetime
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QProgressBar, QStyleFactory,QMessageBox
 from PyQt5.QtCore import QTimer, Qt
+from PyQt5.QtGui import QFont
 from User_Interface import Attendance_For_The_Day, Fingerprint_Setup
 
 
@@ -27,14 +28,29 @@ class StudentLogin(QWidget):
         self.init_ui()
 
     def init_ui(self):
+
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
 
+        font = QFont()
+        font.setFamily("FreeMono")
+        font.setPointSize(24)
+
         self.label = QLabel(self)
         self.label.resize(1200, 40)
+        self.label.move(100, 75)
+        self.label.setFont(font)
+
+        swipe_font = QFont()
+        swipe_font.setFamily("FreeMono")
+        swipe_font.setPointSize(18)
+
+        swipe_label = QLabel("Please swipe your Student ID:", self)
+        swipe_label.setStyleSheet("color: rgb(255, 0, 0)")
+        swipe_label.move(100, 355)
 
         self.progress = QProgressBar(self)
-        self.progress.setGeometry(100, 390, 1050, 30)
+        self.progress.setGeometry(100, 380, 1050, 30)
 
         self.timer = QTimer()
         self.timer.timeout.connect(self.count_down_to_Start)
@@ -44,6 +60,7 @@ class StudentLogin(QWidget):
         if self.startTime < 1:
             self.init_count_end()
         now = datetime.datetime.now()
+
         self.label.setText('Time now: %s. End time: %s. Time Until Start: %02d:%02d:%02d' % (now.strftime("%H:%M:%S"), (now + datetime.timedelta(seconds=self.startTime)).strftime("%H:%M:%S"), (self.startTime//3600)%24,(self.startTime//60)%60,self.startTime%60))
         self.startTime = self.startTime - 1
 
