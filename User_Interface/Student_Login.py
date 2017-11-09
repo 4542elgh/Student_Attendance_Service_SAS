@@ -43,10 +43,11 @@ class StudentLogin(QWidget):
 
         swipe_font = QFont()
         swipe_font.setFamily("FreeMono")
-        swipe_font.setPointSize(18)
+        swipe_font.setPointSize(14)
 
         swipe_label = QLabel("Please swipe your Student ID:", self)
         swipe_label.setStyleSheet("color: rgb(255, 0, 0)")
+        swipe_label.setFont(swipe_font)
         swipe_label.move(100, 355)
 
         self.progress = QProgressBar(self)
