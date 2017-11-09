@@ -29,6 +29,7 @@ class Attendance_For_The_Day(QWidget):
 
     def initUI(self):
         self.setGeometry(self.left, self.top, self.width, self.height)
+        self.setWindowTitle("Attendance for the Day")
         self.get_summary()
 
         self.save_button = QPushButton('Close',self)

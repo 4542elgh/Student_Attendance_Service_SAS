@@ -2,7 +2,7 @@ import sys
 import datetime
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QProgressBar, QStyleFactory,QMessageBox
 from PyQt5.QtCore import QTimer, Qt
-from User_Interface import  Attendance_For_The_Day
+from User_Interface import Attendance_For_The_Day, Fingerprint_Setup
 
 
 class StudentLogin(QWidget):
@@ -70,6 +70,8 @@ class StudentLogin(QWidget):
             print(self.login)
             flc = self.decode(self.login)
             print(flc)
+            student = self.enrolled(flc[2])
+            self.check_fp(student)
             self.login = ""
 
     def decode(self, user_id):
@@ -95,6 +97,20 @@ class StudentLogin(QWidget):
         while self.complete < 100:
             self.complete += 0.0001
             self.progress.setValue(self.complete)
+
+    def enrolled(self, cin):
+        for i in range(0, len(self.studentList)):
+            if self.studentList[i].getCIN() == cin:
+                return self.studentList[i]
+        print("Student not enrolled!")
+
+    def check_fp(self, student):
+        if student.get_fingerprint_id() == -1:
+            self.fp_setup = Fingerprint_Setup.FingerprintSetup(student)
+            self.fp_setup.show()
+        else:
+            print()
+
 
 
 if __name__ == '__main__':

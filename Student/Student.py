@@ -5,10 +5,17 @@ class Student:
         setattr(self, "firstName", firstName)
         setattr(self, "lastName", lastName)
         setattr(self, "cin", cin)
+        self.fingerprint_ID = -1
         if attendance is None:
             setattr(self,"attendance", "Absent")
         else:
             setattr(self, "attendance", attendance)
+
+    def get_fingerprint_id(self):
+        return self.fingerprint_ID
+
+    def set_fingerprint_id(self, index):
+        self.fingerprint_ID = index
 
     def getSerial(self):
         return getattr(self,"serial")
@@ -38,7 +45,7 @@ class Student:
         setattr(self, "cin", cin)
 
     def setAttendance(self,attendance):
-        return getattr(self, "attendance",attendance)
+        setattr(self, "attendance",attendance)
 
     def toList(self):
         return [self.serial , self.firstName , self.lastName , self.cin]

@@ -1,15 +1,2 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Data>
-    <Student SerialID="1">
-        <ID>1</ID>
-        <FirstName>Evan</FirstName>
-        <LastName>Liu</LastName>
-        <CIN>10</CIN>
-    </Student>
-    <Student SerialID="3">
-        <ID>3</ID>
-        <FirstName>Sherry</FirstName>
-        <LastName>Liu</LastName>
-        <CIN>2039812411</CIN>
-    </Student>
-</Data>
+<Data><Student SerialID="1"><ID>1</ID><FirstName>Evan</FirstName><LastName>Liu</LastName><CIN>10</CIN></Student><Student SerialID="3"><ID>3</ID><FirstName>Sherry</FirstName><LastName>Liu</LastName><CIN>2039812411</CIN></Student><Student SerialID="121"><ID>121</ID><FirstName>Isaac</FirstName><LastName>Cano</LastName><CIN>304770978</CIN></Student></Data>

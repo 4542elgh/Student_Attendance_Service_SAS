@@ -9,6 +9,7 @@ from Hashing_PBKDF2 import PBKDF2_Algorithm
 from User_Interface import Attendance_For_The_Day
 from Student import Student
 
+
 class AdminLogin(QMainWindow):
     def __init__(self, parent=None):
         super().__init__()
