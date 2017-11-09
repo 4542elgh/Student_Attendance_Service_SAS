@@ -18,11 +18,11 @@ class exportJSON(Export_Abstract.Export_Abstract):
         studentDictionary={} #initalize an empty 1D dict
         with open(path, 'w') as json_Output:
             for student in StudentList:
-                studentDictionary[student.getSerial()]={} #initalize 2d dict for header ID aka element[0]
-                studentDictionary[student.getSerial()]["FirstName"] = student.getFirstName()
-                studentDictionary[student.getSerial()]["LastName"] = student.getLastName()
-                studentDictionary[student.getSerial()]["CIN"] = student.getCIN()
-                studentDictionary[student.getFingerprintIndex()]["FingerprintIndex"] = student.getFingerprintIndex()
+                studentDictionary[student.getCIN()]={} #initalize 2d dict for header ID aka element[0]
+                studentDictionary[student.getCIN()]["FirstName"] = student.getFirstName()
+                studentDictionary[student.getCIN()]["LastName"] = student.getLastName()
+                studentDictionary[student.getCIN()]["CIN"] = student.getCIN()
+                studentDictionary[student.getCIN()]["FingerprintIndex"] = student.getFingerprintIndex()
             json.dump(studentDictionary, json_Output)
 
 class exportXML(Export_Abstract.Export_Abstract):
@@ -31,7 +31,7 @@ class exportXML(Export_Abstract.Export_Abstract):
         Alias=["ID","FirstName","LastName","CIN"] #XML Tag alias
         counter=0 #getting the Serial ID since it is the first attribute in matrix list
         for student in StudentList:
-            temp = ET.SubElement(doc,"Student",SerialID=student.getSerial())
+            temp = ET.SubElement(doc,"Student",SerialID=student.getCIN())
             # innerCounter=0 #inner counter for all the other element except ID
             # for subelement in element:
             ET.SubElement(temp, "FirstName").text = student.getFirstName()

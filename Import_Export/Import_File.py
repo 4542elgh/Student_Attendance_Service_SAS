@@ -43,7 +43,10 @@ class importJSON(Import_Abstract.Import_Abstract):
     def toList(self, file_name):
         jsonList = [] #defining datatype
         with open(file_name,"r") as import_File:
-            jsonData=json.load(import_File) # print(type(jsonData)) this return dict for object type
+            try:
+                jsonData=json.load(import_File) # print(type(jsonData)) this return dict for object type
+            except ValueError:
+                return jsonList
             temp=[]
             for item in json_recursion(jsonData): # this loop will call json_recursion.next() each time the loop finishes (but this memory saving generator can be stopped at anytime rather than function with return that have to finish executing the entire loop)
                 temp.append(item)
@@ -56,7 +59,10 @@ class importJSON(Import_Abstract.Import_Abstract):
 
 class importXML(Import_Abstract.Import_Abstract):
     def toList(self, file_name):
-        tree = ET.parse(file_name)
+        try:
+            tree = ET.parse(file_name)
+        except :
+            return []
         root = tree.getroot()
         xmlList=[]
         for childNode in root: #parent root this is each student's header
