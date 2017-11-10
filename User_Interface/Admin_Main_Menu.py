@@ -172,6 +172,7 @@ class MainMenu(QWidget):
                                                 "All Files (*);;Python Files (*.py)", options=options)
         if files:
             self.file_name = files[0]
+
     def submit_time(self):
         if str(self.left_am_pm_box.currentText())=="PM":
             startHour=int(self.left_hours_box.currentText())+12
@@ -198,7 +199,7 @@ class MainMenu(QWidget):
             QMessageBox.question(self, 'Student Attendance Service',"Please select an end time greater than equal to current time", QMessageBox.Ok)
         else:
             print(timeFrame)
-            self.menu = Student_Login.StudentLogin(startTime,timeFrame,self.file_name,self.studentList)
+            self.menu = Student_Login.StudentLogin(startTime, timeFrame, self.file_name, self.file_extension, self.studentList)
             self.menu.show()
 
         self.close()
@@ -218,6 +219,7 @@ class MainMenu(QWidget):
 
     def set_student_list(self, student_list):
         self.studentList = student_list
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

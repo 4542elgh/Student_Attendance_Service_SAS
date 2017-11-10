@@ -7,7 +7,7 @@ from User_Interface import Attendance_For_The_Day, Fingerprint_Setup
 
 
 class StudentLogin(QWidget):
-    def __init__(self ,startTime,endTime,file_path,studentList,parent=None):
+    def __init__(self, startTime, endTime, file_path, file_extension, studentList, parent=None):
         super().__init__()
         print(len(studentList))
         self.title = 'Student Login'
@@ -19,7 +19,9 @@ class StudentLogin(QWidget):
         self.startTime=startTime
 
         self.file_path=file_path
+        self.file_extension = file_extension
         self.studentList=studentList
+        self.student = None
 
         for student in self.studentList:
             print(student.getCIN())
@@ -88,8 +90,9 @@ class StudentLogin(QWidget):
             print(self.login)
             flc = self.decode(self.login)
             print(flc)
-            student = self.enrolled(flc[2])
-            self.check_fp(student)
+            cin = self.enrolled(flc[2])
+            self.enrolled(cin)
+            self.check_fp()
             self.login = ""
 
     def decode(self, user_id):
@@ -119,16 +122,11 @@ class StudentLogin(QWidget):
     def enrolled(self, cin):
         for i in range(0, len(self.studentList)):
             if self.studentList[i].getCIN() == cin:
-                return self.studentList[i]
-        print("Student not enrolled!")
+                self.student = self.studentList[i]
 
-    def check_fp(self, student):
-        if student.get_fingerprint_id() == -1:
-            self.fp_setup = Fingerprint_Setup.FingerprintSetup(student)
-            self.fp_setup.show()
-        else:
-            print()
-
+    def check_fp(self):
+        self.fp_setup = Fingerprint_Setup.FingerprintSetup(self.student, self.studentList, self.file_path, self.file_extension)
+        self.fp_setup.show()
 
 
 if __name__ == '__main__':
