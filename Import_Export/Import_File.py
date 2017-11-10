@@ -17,12 +17,6 @@ class importCSV(Import_Abstract.Import_Abstract):
                     continue
                 else:
                     csvList.append(Student.Student(element[0], element[1], element[2], element[3]))
-            # for element in csvList:
-            #     print(element.getCIN())
-            # Sorting_List.Sorting_List.ins_sort(csvList)
-            # print("\n")
-            # for element in csvList:
-            #     print(element.getCIN())
             Sorting_List.Sorting_List.merge_Sort(csvList)
             return csvList
 
@@ -67,10 +61,5 @@ class importXML(Import_Abstract.Import_Abstract):
         xmlList=[]
         for childNode in root: #parent root this is each student's header
             xmlList.append(Student.Student(childNode[0].text, childNode[1].text, childNode[2].text,childNode[3].text))
-            # print(childNode.tag,childNode.text) #node.text will give the element value (the value in between <>xxx<> )
-            # temp=Student.Student()
-            # for grandChildNode in childNode: #this is the attribute that specific student will have
-            #     # xmlList.append(grandChildNode.tag)
-            #     xmlList.append(grandChildNode.text)
         Sorting_List.Sorting_List.merge_Sort(xmlList)
         return xmlList
