@@ -201,8 +201,9 @@ class MainMenu(QWidget):
             print(timeFrame)
             self.menu = Student_Login.StudentLogin(startTime, timeFrame, self.file_name, self.file_extension, self.studentList)
             self.menu.show()
+            self.close()
 
-        self.close()
+
 
     def parse_file(self):
         if self.file_extension == "csv":
