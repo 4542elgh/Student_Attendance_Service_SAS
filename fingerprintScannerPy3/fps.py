@@ -5,7 +5,7 @@ import signal
 import serial
 import time
 
-from fpspy3 import settings
+from fingerprintScannerPy3 import settings
 
 logging.basicConfig(format="[%(name)s][%(asctime)s] %(message)s")
 logger = logging.getLogger("Fingerprint")

@@ -8,7 +8,7 @@ from Import_Export import Import_File,Export_File
 from Add_Edit_Delete import ModifyEntry
 from Student import Student
 from User_Interface import Add_Student
-from fpspy3 import settings, fps
+from fingerprintScannerPy3 import settings, fps
 import csv
 
 

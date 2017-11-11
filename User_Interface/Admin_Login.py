@@ -1,6 +1,6 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QLineEdit, QPushButton
-from PyQt5.QtGui import QIcon, QPixmap
+from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QLineEdit, QPushButton,QShortcut
+from PyQt5.QtGui import QIcon, QPixmap,QKeySequence
 from PyQt5.QtCore import QUrl, pyqtSlot
 from User_Interface import Load_Roster
 from User_Interface import Register_Admin
@@ -44,6 +44,7 @@ class AdminLogin(QMainWindow):
         self.textbox_name = QLineEdit(self)
         self.textbox_name.resize(250, 20)
         self.textbox_name.move(25, 330)
+        self.textbox_name.returnPressed.connect(self.open_window)
 
         label_password = QLabel('Password:', self)
         label_password.move(25, 355)
@@ -51,6 +52,7 @@ class AdminLogin(QMainWindow):
         self.textbox_password.resize(250, 20)
         self.textbox_password.move(25, 385)
         self.textbox_password.setEchoMode(QLineEdit.Password)
+        self.textbox_password.returnPressed.connect(self.open_window)
 
         login_button = QPushButton('Login', self)
         login_button.setToolTip('Login')
@@ -72,11 +74,13 @@ class AdminLogin(QMainWindow):
         alternate_login.setOpenExternalLinks(True)
         alternate_login.move(200, 480)
 
+        self.shortcut = QShortcut(QKeySequence("Enter"), self)
+        self.shortcut.activated.connect(self.open_window)
     @pyqtSlot()
     def open_window(self):
         if (self.hash.check_Password(self,self.textbox_name.text(),self.textbox_password.text())):
             print("Login Successful")
-            admin.close()
+            self.close()
             self.newWindow = Load_Roster.LoadRoster(self)
             self.newWindow.show()
         else:

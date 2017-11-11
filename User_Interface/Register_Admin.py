@@ -39,6 +39,7 @@ class Register_Admin(QMainWindow):
         self.textbox_name = QLineEdit(self)
         self.textbox_name.resize(250, 20)
         self.textbox_name.move(25, 330)
+        self.textbox_name.returnPressed.connect(self.open_register_window)
 
         label_password = QLabel('Password:', self)
         label_password.move(25, 355)
@@ -46,6 +47,7 @@ class Register_Admin(QMainWindow):
         self.textbox_password.resize(250, 20)
         self.textbox_password.move(25, 385)
         self.textbox_password.setEchoMode(QLineEdit.Password)
+        self.textbox_password.returnPressed.connect(self.open_register_window)
 
         label_re_password = QLabel('Re-enter password:', self)
         label_re_password.move(25, 415)
@@ -54,6 +56,7 @@ class Register_Admin(QMainWindow):
         self.textbox_re_password.resize(250, 20)
         self.textbox_re_password.move(25, 445)
         self.textbox_re_password.setEchoMode(QLineEdit.Password)
+        self.textbox_re_password.returnPressed.connect(self.open_register_window)
 
         login_button = QPushButton('Register', self)
         login_button.setToolTip('Register an admin account')
@@ -64,14 +67,15 @@ class Register_Admin(QMainWindow):
 
     def open_register_window(self):
         if self.textbox_name.text()=='':
-            print("textbox is empty")
+            self.label_login_error.setText("Fields cannot be empty")
             self.label_login_error.show()
         elif(self.hash.check_Avaliable_Username(self,self.textbox_name.text())):
-            print("username is avaliable")
             self.label_login_error.hide()
             if(self.hash.check_Identical_Password(self,self.textbox_password.text(),self.textbox_re_password.text())):
                 if(self.hash.check_Password_Length(self,self.textbox_password.text())):
                     if(self.hash.check_Special_Character(self.textbox_password.text())):
+                        self.hash.generate_Hash(self, self.textbox_name.text(), self.textbox_password.text())
+                        QMessageBox.question(self, 'Student Attendance Service', "Account Created!",QMessageBox.Ok)
                         self.close()
                         self.newWindow = Admin_Login.AdminLogin()
                         self.newWindow.show()
