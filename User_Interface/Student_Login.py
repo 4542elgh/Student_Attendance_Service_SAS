@@ -1,9 +1,10 @@
 import sys
+import threading
 import datetime
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QProgressBar, QStyleFactory,QMessageBox
 from PyQt5.QtCore import QTimer, Qt
 from PyQt5.QtGui import QFont
-from User_Interface import Attendance_For_The_Day, Fingerprint_Setup
+from User_Interface import Attendance_For_The_Day, Fingerprint_Setup, Custom_Message_Box
 
 
 class StudentLogin(QWidget):
@@ -87,12 +88,20 @@ class StudentLogin(QWidget):
         self.login = self.login + str(event.text())
 
         if event.key() == Qt.Key_Return:
-            print(self.login)
             flc = self.decode(self.login)
-            print(flc)
-            cin = self.enrolled(flc[2])
-            self.enrolled(cin)
-            self.check_fp()
+            print(self.login)
+            if flc[2] != "000000000":
+                cin = self.enrolled(flc[2])
+                self.enrolled(cin)
+                Custom_Message_Box.CustomMessageBox.showWithTimeout(2, "GET READY: Place your finger on scanner",
+                                                                    "Fingerprint Preparation:",
+                                                                    icon=QMessageBox.Information)
+                self.check_fp()
+                self.progress.setValue(0)
+            else:
+                Custom_Message_Box.CustomMessageBox.showWithTimeout(1, "ERROR: Reswipe ID",
+                                                                    "Rejected:",
+                                                                    icon=QMessageBox.Information)
             self.login = ""
 
     def decode(self, user_id):
@@ -124,9 +133,13 @@ class StudentLogin(QWidget):
             if self.studentList[i].getCIN() == cin:
                 self.student = self.studentList[i]
 
+    def open_fp_view(self):
+        self.fp_view = Fingerprint_view.Fingerprint_View(self)
+        self.fp_view.show()
+
     def check_fp(self):
-        self.fp_setup = Fingerprint_Setup.FingerprintSetup(self.student, self.studentList, self.file_path, self.file_extension)
-        self.fp_setup.show()
+        self.fp_setup = Fingerprint_Setup.FingerprintSetup(self.student, self.studentList, self.file_path,
+                                                               self.file_extension)
 
 
 if __name__ == '__main__':
