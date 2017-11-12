@@ -67,7 +67,7 @@ class FingerprintSetup:
         if f.init():
             f.open()
 
-            for i in range(2):
+            for i in range(3):
 
                 index = f.identify()
 
@@ -75,12 +75,12 @@ class FingerprintSetup:
 
                     self.student.setAttendance("Present")
                     time.sleep(1)
-                    Custom_Message_Box.CustomMessageBox.showWithTimeout(1, "SUCCESS!",
+                    Custom_Message_Box.CustomMessageBox.showWithTimeout(1, "SUCCESS: Print was recognized!",
                                                                         "Accepted:",
                                                                         icon=QMessageBox.Information)
                     break
                 else:
-                    Custom_Message_Box.CustomMessageBox.showWithTimeout(1, "UNRECOGNIZED: Reposition print!",
+                    Custom_Message_Box.CustomMessageBox.showWithTimeout(2, "UNRECOGNIZED: Reposition print!",
                                                                         "Rejected:",
                                                                         icon=QMessageBox.Warning)
                 # if i == 1:

@@ -93,7 +93,7 @@ class StudentLogin(QWidget):
             if flc[2] != "000000000":
                 cin = self.enrolled(flc[2])
                 self.enrolled(cin)
-                Custom_Message_Box.CustomMessageBox.showWithTimeout(2, "GET READY: Place your finger on scanner",
+                Custom_Message_Box.CustomMessageBox.showWithTimeout(3, "GET READY: Wait for the blue light!",
                                                                     "Fingerprint Preparation:",
                                                                     icon=QMessageBox.Information)
                 self.check_fp()
