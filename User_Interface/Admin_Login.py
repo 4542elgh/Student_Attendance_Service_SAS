@@ -19,7 +19,7 @@ class AdminLogin(QMainWindow):
         self.width = 300
         self.height = 515
         self.hash=PBKDF2_Algorithm.PBKDF2_Algorithm
-        self.hash.generate_Hash(self,'admin','000000')
+        self.hash.generate_Hash(self,'admin','000000','admin@example.com')
         self.init_ui()
 
     def init_ui(self):

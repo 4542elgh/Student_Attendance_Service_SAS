@@ -10,11 +10,20 @@ import csv
 from Student import Student
 
 class Main(): #do every entry in string, export will handle the datatype
-        stu1=Student.Student("ming","Liu","30012903")
-        print(stu1.getCIN())
-        print(stu1.getFingerprintIndex())
+        email="4542elgh@gmail.com"
 
 
+        def check_Email_Validity(email):
+                for chars in email:
+                        if chars == '@':
+                                print("true")
+                                if email[len(email) - 4:] == '.com':
+                                        return True
+                                else:
+                                        return False
+                else:
+                        return False
+        print(check_Email_Validity(email))
     # temp = [Student.Student("1","Evan","Liu","304706199")]
     # Export_File.exportCSV.exportToFile(object,temp)
     #This is the method to use the import and export for 3 file types --------------------------------------------

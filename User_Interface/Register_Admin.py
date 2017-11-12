@@ -13,7 +13,7 @@ class Register_Admin(QMainWindow):
         self.left = 50
         self.top = 50
         self.width = 300
-        self.height = 550
+        self.height = 600
         self.hash=PBKDF2_Algorithm.PBKDF2_Algorithm
         self.init_ui()
         self.newWindow = Admin_Login
@@ -58,9 +58,17 @@ class Register_Admin(QMainWindow):
         self.textbox_re_password.setEchoMode(QLineEdit.Password)
         self.textbox_re_password.returnPressed.connect(self.open_register_window)
 
+        label_re_password = QLabel('E-mail:', self)
+        label_re_password.move(25, 475)
+        label_re_password.setMinimumWidth(300)
+        self.textbox_email = QLineEdit(self)
+        self.textbox_email.resize(250, 20)
+        self.textbox_email.move(25, 505)
+        self.textbox_email.returnPressed.connect(self.open_register_window)
+
         login_button = QPushButton('Register', self)
         login_button.setToolTip('Register an admin account')
-        login_button.move(175, 480)
+        login_button.move(175, 540)
         login_button.clicked.connect(self.open_register_window)
 
     @pyqtSlot()
@@ -74,11 +82,23 @@ class Register_Admin(QMainWindow):
             if(self.hash.check_Identical_Password(self,self.textbox_password.text(),self.textbox_re_password.text())):
                 if(self.hash.check_Password_Length(self,self.textbox_password.text())):
                     if(self.hash.check_Special_Character(self.textbox_password.text())):
-                        self.hash.generate_Hash(self, self.textbox_name.text(), self.textbox_password.text())
-                        QMessageBox.question(self, 'Student Attendance Service', "Account Created!",QMessageBox.Ok)
-                        self.close()
-                        self.newWindow = Admin_Login.AdminLogin()
-                        self.newWindow.show()
+                        if(self.textbox_email.text()==''):
+                            self.label_login_error.setText("Empty Address")
+                            self.label_login_error.show()
+                        elif (self.hash.check_Avaliable_Email(self,self.textbox_email.text())):
+                            print(self.hash.check_Email_Validity(self,self.textbox_email.text()))
+                            if (self.hash.check_Email_Validity(self,self.textbox_email.text())):
+                                self.hash.generate_Hash(self, self.textbox_name.text(), self.textbox_password.text(),self.textbox_email.text())
+                                QMessageBox.question(self, 'Student Attendance Service', "Account Created!",QMessageBox.Ok)
+                                self.close()
+                                self.newWindow = Admin_Login.AdminLogin()
+                                self.newWindow.show()
+                            else:
+                                self.label_login_error.setText("Email address not valid")
+                                self.label_login_error.show()
+                        else:
+                            self.label_login_error.setText("Duplicate email address")
+                            self.label_login_error.show()
                     else:
                         self.label_login_error.setText("Please make sure your password\nhave 1 upper 1 lower\n1 number 1 special character")
                         self.label_login_error.show()

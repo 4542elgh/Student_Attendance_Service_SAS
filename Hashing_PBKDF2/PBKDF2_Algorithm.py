@@ -9,27 +9,27 @@ class PBKDF2_Algorithm():
     def generate_Salt(self): #generate an 8-bit salt for hashing password
         return os.urandom(8)
 
-    def generate_Hash(self,username,inputPassword):
+    def generate_Hash(self,username,inputPassword,email):
         salt = PBKDF2_Algorithm.generate_Salt(object) #calling within the same class require class name.def
         hash=pbkdf2_sha256.encrypt(inputPassword,rounds=10000,salt=salt) #with raw password, iterate it with salt 10000 times to avoid brute force and dictionary attack or rainbow attack
-        PBKDF2_Algorithm.storing_Salt_Hash(object,username,salt,hash) #store username,salt,hash, BUT NOT RAW PASSWORD
+        PBKDF2_Algorithm.storing_Salt_Hash(object,username,salt,hash,email) #store username,salt,hash, BUT NOT RAW PASSWORD
 
-    def storing_Salt_Hash(self, username, salt, hash):
+    def storing_Salt_Hash(self, username, salt, hash,email):
         try: #try if the file exist or not
             with open('../Hashing_PBKDF2/Admin_Login.pickle','rb') as readFile:  # load pickle file and load it into variable 'temp'
                 temp = pickle.load(readFile)
-                temp[username] = [salt, hash]  # add a new entry for specific user with specific salt and hash
+                temp[username] = [salt, hash,email]  # add a new entry for specific user with specific salt and hash
             with open('../Hashing_PBKDF2/Admin_Login.pickle', 'wb') as writeFile:
                 pickle.dump(temp, writeFile, protocol=pickle.HIGHEST_PROTOCOL) # write it to file
         except IOError: #if the file doesnt exist
             with open('../Hashing_PBKDF2/Admin_Login.pickle', 'wb') as writeFile: #empty file
                 temp={} #empty dict to store first input value
-                temp[username]=[salt,hash]
+                temp[username]=[salt,hash,email]
                 pickle.dump(temp, writeFile, protocol=pickle.HIGHEST_PROTOCOL) #write to file
         except EOFError: #if the file doesnt exist
             with open('../Hashing_PBKDF2/Admin_Login.pickle', 'wb') as writeFile: #empty file
                 temp={} #empty dict to store first input value
-                temp[username]=[salt,hash]
+                temp[username]=[salt,hash,email]
                 pickle.dump(temp, writeFile, protocol=pickle.HIGHEST_PROTOCOL) #write to file
 
     def check_Password(self,username,password): #return a true or false value indicating passsword valid or not
@@ -48,6 +48,17 @@ class PBKDF2_Algorithm():
                 return False
             else:
                  return True
+
+    def check_Avaliable_Email(self,email):
+        with open('../Hashing_PBKDF2/Admin_Login.pickle', 'rb') as readFile:
+            passwordList = pickle.load(readFile) #fetch all the dict entry from file
+            try:
+                for key, value in passwordList.items():
+                    if email == value[2]:
+                        return False
+                return True
+            except IndexError:
+                return True
 
     def check_Identical_Password(self,password,rePassword):
         if(password==rePassword):
@@ -93,7 +104,15 @@ class PBKDF2_Algorithm():
         else:
             return False
 
-
+    def check_Email_Validity(self,email):
+        for chars in email:
+            if chars == '@':
+                if email[len(email)-4:] == '.com':
+                    return True
+                else:
+                    return False
+        else:
+            return False
 
 
 
