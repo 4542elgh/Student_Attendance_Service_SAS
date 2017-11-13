@@ -1,5 +1,6 @@
 import sys
 import datetime
+import cv2
 
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QLineEdit, QPushButton
 from PyQt5.QtGui import QIcon, QPixmap
@@ -97,6 +98,8 @@ class StudentLogin(QMainWindow):
         student.close()
         self.registerWindow = Register_Student.Register_Student(self)
         self.registerWindow.show()
+
+    def
 
 
 
