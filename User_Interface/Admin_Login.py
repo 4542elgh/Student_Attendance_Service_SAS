@@ -38,10 +38,6 @@ class AdminLogin(QMainWindow):
         label_logo.resize(200, 200)
         label_logo.move(50, 60)
 
-        image = QImage();
-        image.load("logo.png");
-        image.save("logo2.png");
-
         label_name = QLabel('Name:', self)
         label_name.move(25, 300)
         self.textbox_name = QLineEdit(self)
