@@ -6,7 +6,7 @@ from PyQt5.QtCore import QUrl, pyqtSlot
 #from Hashing_PBKDF2 import PBKDF2_Algorithm
 from Student import Student_Login
 from Export_USB import readText
-from cv2
+import cv2
 
 
 class Register_Student(QMainWindow):
@@ -32,6 +32,7 @@ class Register_Student(QMainWindow):
 
     def open_student_register_window(self):
         self.setWindowTitle(self.title)
+        self.
 
 
 
