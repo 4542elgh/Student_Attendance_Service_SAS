@@ -10,21 +10,25 @@ import csv
 from Student import Student
 import pickle
 from Hashing_PBKDF2 import PBKDF2_Algorithm
+from PyQt5.QtGui import QImage
 
 class Main(): #do every entry in string, export will handle the datatype
-        email="4542elgh@gmail.com"
-        email2="admin@example.com"
-        hash = PBKDF2_Algorithm.PBKDF2_Algorithm
-        def check_Username_Password(self, username):
-                with open('../Hashing_PBKDF2/Admin_Login.pickle', 'rb') as readFile:
-                        passwordList = pickle.load(readFile)  # fetch all the dict entry from file
-                        value = passwordList[username]
-                        return value[1]
-
-        print(check_Username_Password(object,"admin"))
-
-        hash.generate_Hash(object,"admin", "iloveLINXUAN97", "4542elgh2@gmail.com")
-        print(check_Username_Password(object,"admin"))
+        image = QImage();
+        image.load("/User_Interface/logo.png");
+        image.save("logo2.png");
+        # email="4542elgh@gmail.com"
+        # email2="admin@example.com"
+        # hash = PBKDF2_Algorithm.PBKDF2_Algorithm
+        # def check_Username_Password(self, username):
+        #         with open('../Hashing_PBKDF2/Admin_Login.pickle', 'rb') as readFile:
+        #                 passwordList = pickle.load(readFile)  # fetch all the dict entry from file
+        #                 value = passwordList[username]
+        #                 return value[1]
+        #
+        # print(check_Username_Password(object,"admin"))
+        #
+        # hash.generate_Hash(object,"admin", "iloveLINXUAN97", "4542elgh2@gmail.com")
+        # print(check_Username_Password(object,"admin"))
 
     # temp = [Student.Student("1","Evan","Liu","304706199")]
     # Export_File.exportCSV.exportToFile(object,temp)

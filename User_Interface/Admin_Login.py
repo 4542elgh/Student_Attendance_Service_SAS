@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel, QLineEdit, QPushButton,QShortcut
-from PyQt5.QtGui import QIcon, QPixmap,QKeySequence
+from PyQt5.QtGui import QIcon, QPixmap,QKeySequence,QImage
 from PyQt5.QtCore import QUrl, pyqtSlot
 from User_Interface import Load_Roster
 from User_Interface import Register_Admin
@@ -37,6 +37,10 @@ class AdminLogin(QMainWindow):
         label_logo.setPixmap(pixmap_logo)
         label_logo.resize(200, 200)
         label_logo.move(50, 60)
+
+        image = QImage();
+        image.load("logo.png");
+        image.save("logo2.png");
 
         label_name = QLabel('Name:', self)
         label_name.move(25, 300)
