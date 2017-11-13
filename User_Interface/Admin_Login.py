@@ -65,14 +65,9 @@ class AdminLogin(QMainWindow):
         register_button.clicked.connect(self.open_register_admin_window)
 
         reset_button = QPushButton('Reset', self)
-        reset_button.setToolTip('Login')
+        reset_button.setToolTip('Reset Admin Password')
         reset_button.move(25, 460)
         reset_button.clicked.connect(self.open_reset_password_window)
-
-        alternate_login = QLabel('Alternate Login', self)
-        alternate_login.setText('''<a href='smileman.gif'>Alternate Login</a>''')
-        alternate_login.setOpenExternalLinks(True)
-        alternate_login.move(200, 480)
 
         self.shortcut = QShortcut(QKeySequence("Enter"), self)
         self.shortcut.activated.connect(self.open_window)
@@ -88,16 +83,15 @@ class AdminLogin(QMainWindow):
             print("Login Failed")
 
     def open_register_admin_window(self):
-        admin.close()
+        self.close()
         self.registerWindow = Register_Admin.Register_Admin(self)
         self.registerWindow.show()
 
     def open_reset_password_window(self):
-        admin.close()
-        # self.resetWindow = Reset_Password.Reset_Password(self)
-        # self.resetWindow.show()
-        self.summary=Attendance_For_The_Day.Attendance_For_The_Day("C:/Users/Huahuo/Desktop/",[Student.Student("1","ming","Liu","304706","onTime")])
-        self.summary.show()
+        self.close()
+        self.resetWindow = Reset_Password.Reset_Password(self)
+        self.resetWindow.show()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

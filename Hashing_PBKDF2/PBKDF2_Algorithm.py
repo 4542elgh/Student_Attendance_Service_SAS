@@ -43,11 +43,12 @@ class PBKDF2_Algorithm():
 
     def check_Avaliable_Username(self,username): #return a true or false value indicating passsword valid or not
         with open('../Hashing_PBKDF2/Admin_Login.pickle', 'rb') as readFile:
-            passwordList = pickle.load(readFile) #fetch all the dict entry from file
-            if username in passwordList:# get the user input password (login) and check it with the hash from that user's dict, python will keep track which algorithm u use and how many iteration you used.
-                return False
-            else:
-                 return True
+                passwordList = pickle.load(readFile) #fetch all the dict entry from file
+                if username in passwordList:# get the user input password (login) and check it with the hash from that user's dict, python will keep track which algorithm u use and how many iteration you used.
+                    return False
+                else:
+                     return True
+
 
     def check_Avaliable_Email(self,email):
         with open('../Hashing_PBKDF2/Admin_Login.pickle', 'rb') as readFile:
@@ -59,6 +60,19 @@ class PBKDF2_Algorithm():
                 return True
             except IndexError:
                 return True
+
+    def check_Username_Password(self, username, email):
+        with open('../Hashing_PBKDF2/Admin_Login.pickle', 'rb') as readFile:
+            passwordList = pickle.load(readFile)  # fetch all the dict entry from file
+            try:
+                value = passwordList[username]
+                if email == value[2]:
+                    return True
+                return False
+            except IndexError:
+                return False
+            except KeyError:
+                return False
 
     def check_Identical_Password(self,password,rePassword):
         if(password==rePassword):

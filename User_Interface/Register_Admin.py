@@ -66,12 +66,22 @@ class Register_Admin(QMainWindow):
         self.textbox_email.move(25, 505)
         self.textbox_email.returnPressed.connect(self.open_register_window)
 
+        login_button = QPushButton('Main Menu', self)
+        login_button.setToolTip('Return to main menu')
+        login_button.move(25, 540)
+        login_button.clicked.connect(self.main_menu)
+
         login_button = QPushButton('Register', self)
         login_button.setToolTip('Register an admin account')
         login_button.move(175, 540)
         login_button.clicked.connect(self.open_register_window)
 
     @pyqtSlot()
+    def open_register_window(self):
+        self.close()
+        self.newWindow = Admin_Login.AdminLogin()
+        self.newWindow.show()
+
 
     def open_register_window(self):
         if self.textbox_name.text()=='':

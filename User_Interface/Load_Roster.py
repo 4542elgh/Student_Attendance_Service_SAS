@@ -22,19 +22,22 @@ class LoadRoster(QWidget):
         self.setGeometry(self.left, self.top, self.width, self.height)
 
         start_new_label = QLabel('Start A New Roster:', self)
-        start_new_label.setFixedHeight(20)
+        start_new_label.setFixedHeight(25)
+        start_new_label.setFixedWidth(160)
         start_new_label.move(65,270)
 
-        new_file = QPushButton('Start New File',self)
-        new_file.move(165, 270)
+        new_file = QPushButton('New File',self)
+        new_file.setFixedHeight(25)
+        new_file.move(225, 270)
         new_file.clicked.connect(self.save_file_names_dialog)
 
         label_filename = QLabel('Path:', self)
-        label_filename.move(65, 305)
+        label_filename.move(65, 300)
+        label_filename.setFixedHeight(25)
 
         textbox_filename = QLineEdit(self)
         textbox_filename.setObjectName("line")
-        textbox_filename.resize(400, 20)
+        textbox_filename.resize(400, 25)
         textbox_filename.move(100, 300)
 
         button_file = QPushButton('', self)
