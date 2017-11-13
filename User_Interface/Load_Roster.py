@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog, QLabel, QPushButton,QMessageBox,QComboBox,QAction
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon,QPixmap
 from PyQt5.QtCore import QSize
 from User_Interface import Admin_Main_Menu
 
@@ -26,18 +26,24 @@ class LoadRoster(QWidget):
         start_new_label.setFixedWidth(160)
         start_new_label.move(65,270)
 
+        label_logo = QLabel(self)
+        pixmap_logo = QPixmap('logo.png')
+        label_logo.setPixmap(pixmap_logo)
+        label_logo.resize(200, 200)
+        label_logo.move(200, 60)
+
         new_file = QPushButton('New File',self)
         new_file.setFixedHeight(25)
-        new_file.move(225, 270)
+        new_file.move(200, 270)
         new_file.clicked.connect(self.save_file_names_dialog)
 
         label_filename = QLabel('Path:', self)
         label_filename.move(65, 300)
-        label_filename.setFixedHeight(25)
+        label_filename.setFixedHeight(20)
 
         textbox_filename = QLineEdit(self)
         textbox_filename.setObjectName("line")
-        textbox_filename.resize(400, 25)
+        textbox_filename.resize(400, 20)
         textbox_filename.move(100, 300)
 
         button_file = QPushButton('', self)

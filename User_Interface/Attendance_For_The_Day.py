@@ -4,6 +4,7 @@ import time
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QAction, QTableWidget, QTableWidgetItem, QVBoxLayout, QPushButton,QHBoxLayout,QMessageBox,QLabel
 from PyQt5.QtCore import pyqtSlot,QEvent
 from PyQt5 import QtCore
+from PyQt5.QtGui import QPixmap
 from Import_Export import Import_File,Export_File
 from Add_Edit_Delete import ModifyEntry
 from Student import Student
@@ -31,6 +32,12 @@ class Attendance_For_The_Day(QWidget):
         self.setGeometry(self.left, self.top, self.width, self.height)
         self.setWindowTitle("Attendance for the Day")
         self.get_summary()
+
+        label_logo = QLabel(self)
+        pixmap_logo = QPixmap('logo.png')
+        label_logo.setPixmap(pixmap_logo)
+        label_logo.resize(200, 200)
+        label_logo.move(300, 0)
 
         self.save_button = QPushButton('Close',self)
         self.save_button.move(50,130)

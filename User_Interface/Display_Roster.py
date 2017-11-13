@@ -21,6 +21,8 @@ class App(QWidget):
         self.file_extension = self.file_name[self.file_name.rfind(".") + 1:]
         self.students = self.parse_file()
         self.modifyEntry = ModifyEntry.Modify_Entry
+        self.setFixedHeight(400)
+        self.setFixedWidth(447)
         self.file_type=None
         self.initUI()
 
@@ -46,11 +48,8 @@ class App(QWidget):
         hbox.addWidget(self.discard_button)
 
         self.layout.addStretch(1)
-
         self.layout.addLayout(hbox)
-
         self.setLayout(self.layout)
-        # self.tableWidget.doubleClicked(self.on_click)
         self.show()
 
     def append_student(self, student):
@@ -75,11 +74,9 @@ class App(QWidget):
         self.tableWidget.setRowCount(len(self.students))  # get the total # of student list length
         self.tableWidget.setColumnCount(4)
         self.tableWidget.setFixedHeight(325)
+        self.tableWidget.setFixedWidth(425)
         self.tableWidget.setHorizontalHeaderLabels("CIN;First Name;Last Name;Delete".split(";"))
         App.generate_Table(self)
-
-        # self.layout.addWidget(self.discard_button)
-        # self.delete_button.clicked.connect(lambda state, x=student.getCIN(), y=counter: self.on_click_delete(x, y))
 
     def generate_Table(self):
         print("student list length",len(self.students))

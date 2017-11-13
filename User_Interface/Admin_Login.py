@@ -23,7 +23,6 @@ class AdminLogin(QMainWindow):
         self.init_ui()
 
     def init_ui(self):
-        print("print init here")
         self.setWindowTitle(self.title)
         self.setFixedSize(self.width,self.height)
 
@@ -34,10 +33,10 @@ class AdminLogin(QMainWindow):
         self.label_login_error.hide()
 
         label_logo = QLabel(self)
-        pixmap_logo = QPixmap('placeholder.png')
+        pixmap_logo = QPixmap('logo.png')
         label_logo.setPixmap(pixmap_logo)
         label_logo.resize(200, 200)
-        label_logo.move(50, 50)
+        label_logo.move(50, 60)
 
         label_name = QLabel('Name:', self)
         label_name.move(25, 300)
