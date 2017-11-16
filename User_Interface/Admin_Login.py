@@ -6,9 +6,6 @@ from User_Interface import Load_Roster
 from User_Interface import Register_Admin
 from User_Interface import Reset_Password
 from Hashing_PBKDF2 import PBKDF2_Algorithm
-from User_Interface import Attendance_For_The_Day
-from Student import Student
-
 
 class AdminLogin(QMainWindow):
     def __init__(self, parent=None):
@@ -33,7 +30,7 @@ class AdminLogin(QMainWindow):
         self.label_login_error.hide()
 
         label_logo = QLabel(self)
-        pixmap_logo = QPixmap('logo.png')
+        pixmap_logo = QPixmap('../Image_Assets/logo.png')
         label_logo.setPixmap(pixmap_logo)
         label_logo.resize(200, 200)
         label_logo.move(50, 60)

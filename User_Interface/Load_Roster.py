@@ -27,7 +27,7 @@ class LoadRoster(QWidget):
         start_new_label.move(65,270)
 
         label_logo = QLabel(self)
-        pixmap_logo = QPixmap('logo.png')
+        pixmap_logo = QPixmap('../Image_Assets/logo.png')
         label_logo.setPixmap(pixmap_logo)
         label_logo.resize(200, 200)
         label_logo.move(200, 60)
@@ -47,14 +47,14 @@ class LoadRoster(QWidget):
         textbox_filename.move(100, 300)
 
         button_file = QPushButton('', self)
-        button_file.setIcon(QIcon('openfile.png'))
+        button_file.setIcon(QIcon('../Image_Assets/openfile.png'))
         button_file.setIconSize(QSize(20, 20))
         button_file.setMaximumSize(25, 22.5)
         button_file.move(505, 299)
         button_file.clicked.connect(self.open_file_names_dialog)
 
         button_submit = QPushButton('', self)
-        button_submit.setIcon(QIcon('go.png'))
+        button_submit.setIcon(QIcon('../Image_Assets/go.png'))
         button_submit.setIconSize(QSize(15, 15))
         button_submit.setMaximumSize(25, 22.5)
         button_submit.move(535, 299)

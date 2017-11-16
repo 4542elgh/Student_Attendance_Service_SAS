@@ -29,7 +29,7 @@ class Register_Admin(QMainWindow):
         self.label_login_error.hide()
 
         label_logo = QLabel(self)
-        pixmap_logo = QPixmap('placeholder.png')
+        pixmap_logo = QPixmap('../Image_Assets/logo.png')
         label_logo.setPixmap(pixmap_logo)
         label_logo.resize(200, 200)
         label_logo.move(50, 50)
@@ -77,7 +77,7 @@ class Register_Admin(QMainWindow):
         login_button.clicked.connect(self.open_register_window)
 
     @pyqtSlot()
-    def open_register_window(self):
+    def main_menu(self):
         self.close()
         self.newWindow = Admin_Login.AdminLogin()
         self.newWindow.show()

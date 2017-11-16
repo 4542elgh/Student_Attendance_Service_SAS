@@ -34,7 +34,7 @@ class Attendance_For_The_Day(QWidget):
         self.get_summary()
 
         label_logo = QLabel(self)
-        pixmap_logo = QPixmap('logo.png')
+        pixmap_logo = QPixmap('../Image_Assets/logo.png')
         label_logo.setPixmap(pixmap_logo)
         label_logo.resize(200, 200)
         label_logo.move(300, 0)

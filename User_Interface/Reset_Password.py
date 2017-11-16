@@ -29,7 +29,7 @@ class Reset_Password(QMainWindow):
         self.label_login_error.hide()
 
         label_logo = QLabel(self)
-        pixmap_logo = QPixmap('placeholder.png')
+        pixmap_logo = QPixmap('../Image_Assets/logo.png')
         label_logo.setPixmap(pixmap_logo)
         label_logo.resize(200, 200)
         label_logo.move(50, 50)

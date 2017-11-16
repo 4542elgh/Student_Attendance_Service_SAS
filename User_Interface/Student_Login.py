@@ -3,12 +3,12 @@ import threading
 import datetime
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QProgressBar, QStyleFactory,QMessageBox
 from PyQt5.QtCore import QTimer, Qt
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont,QPixmap
 from User_Interface import Attendance_For_The_Day, Fingerprint_Setup, Custom_Message_Box
 
 
 class StudentLogin(QWidget):
-    def __init__(self, startTime, endTime, file_path, file_extension, studentList, parent=None):
+    def __init__(self, startTime, endTime, file_path, file_extension, studentList, extra_time, parent=None):
         super().__init__()
         print(len(studentList))
         self.title = 'Student Login'
@@ -18,12 +18,12 @@ class StudentLogin(QWidget):
         self.height = 515
         self.count = endTime
         self.startTime=startTime
-
+        self.extra_time = extra_time
         self.file_path=file_path
         self.file_extension = file_extension
         self.studentList=studentList
         self.student = None
-
+        self.currentTimeStatus="Ontime"
         for student in self.studentList:
             print(student.getCIN())
 
@@ -34,6 +34,14 @@ class StudentLogin(QWidget):
 
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
+
+        self.label_logo = QLabel(self)
+        self.pixmap_logo = QPixmap('../Image_Assets/happyface.png')
+        self.label_logo.setPixmap(self.pixmap_logo)
+        self.label_logo.resize(400, 400)
+        self.label_logo.move(400, 60)
+
+
 
         font = QFont()
         font.setFamily("FreeMono")
@@ -74,15 +82,26 @@ class StudentLogin(QWidget):
         self.timer.start(1000)
 
     def count_down_to_End(self):
-        if self.count < 1:
+        if self.count < 1 and self.extra_time < 1:
             QMessageBox.question(self, 'Student Attendance Service',"Attendance for xxx class has ended", QMessageBox.Ok)
             self.summary=Attendance_For_The_Day.Attendance_For_The_Day(self.file_path,self.studentList)
             self.summary.show()
             self.close()
             self.timer.stop()
-        now = datetime.datetime.now()
-        self.label.setText('Time now: %s. End time: %s. Time left: %02d:%02d:%02d' % (now.strftime("%H:%M:%S"), (now + datetime.timedelta(seconds=self.count)).strftime("%H:%M:%S"), (self.count//3600)%24,(self.count//60)%60,self.count%60))
-        self.count = self.count - 1
+        if self.count == 0 :
+            self.currentTimeStatus="Late"
+            self.sadLogo=QPixmap("../Image_Assets/sadface.png")
+            self.label_logo.setPixmap(self.sadLogo)
+            self.extra_time = self.extra_time - 1
+            self.label.setStyleSheet("color: red")
+            self.label.setText("Late: " + str(self.extra_time//60) + ":" + str(self.extra_time%60))
+
+        if self.count > 0:
+            now = datetime.datetime.now()
+            self.label.setText('Time now: %s. End time: %s. Time left: %02d:%02d:%02d' % (now.strftime("%H:%M:%S"), (now + datetime.timedelta(seconds=self.count)).strftime("%H:%M:%S"), (self.count//3600)%24,(self.count//60)%60,self.count%60))
+            self.count = self.count - 1
+
+
 
     def keyPressEvent(self, event):
         self.login = self.login + str(event.text())
@@ -139,7 +158,7 @@ class StudentLogin(QWidget):
 
     def check_fp(self):
         self.fp_setup = Fingerprint_Setup.FingerprintSetup(self.student, self.studentList, self.file_path,
-                                                               self.file_extension)
+                                                               self.file_extension,self.currentTimeStatus)
 
 
 if __name__ == '__main__':

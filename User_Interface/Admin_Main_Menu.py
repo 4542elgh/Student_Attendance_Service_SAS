@@ -10,6 +10,7 @@ from Import_Export import Import_File
 class MainMenu(QWidget):
 
     def __init__(self, file_name,parent=None):
+    # def __init__(self, parent=None):
         super().__init__()
         self.title = 'Main Menu'
         self.left = 200
@@ -47,20 +48,25 @@ class MainMenu(QWidget):
 
         self.time_box(275, 337.5, 355, 430, 100, True,"EndTime")
 
+        end_label = QLabel("Class Start:", self)
+        end_label.move(155, 150)
+
+        self.time_box(155, 217.5, 235, 310, 170, True, "classStart")
+
         display_roster = QPushButton("Show Roster", self)
         display_roster.move(35, 230)
         display_roster.clicked.connect(self.show_table)
 
         change_file = QPushButton("", self)
         change_file.setToolTip("Change roster file")
-        change_file.setIcon(QIcon('openfile.png'))
+        change_file.setIcon(QIcon('../Image_Assets/openfile.png'))
         change_file.setIconSize(QSize(20, 20))
         change_file.setMaximumSize(25, 22.5)
         change_file.move(432.5, 230)
         change_file.clicked.connect(self.change_file)
 
         button_submit = QPushButton("", self)
-        button_submit.setIcon(QIcon('go.png'))
+        button_submit.setIcon(QIcon('../Image_Assets/go.png'))
         button_submit.setIconSize(QSize(15, 15))
         button_submit.setMaximumSize(25, 22.5)
         button_submit.move(460, 230)
@@ -70,9 +76,10 @@ class MainMenu(QWidget):
         colon_font = QFont("Times", 32)
         time_font = QFont("Times", 18)
 
-        colon_label = QLabel(":", self)
-        colon_label.setFont(colon_font)
-        colon_label.move(clx, y)
+        if position != "classStart":
+            colon_label = QLabel(":", self)
+            colon_label.setFont(colon_font)
+            colon_label.move(clx, y)
 
         if position=="StartTime":
             self.left_hours_box = QComboBox(self)
@@ -115,7 +122,7 @@ class MainMenu(QWidget):
                 self.left_minutes_box.setCurrentIndex(minutes)
                 self.left_am_pm_box.setCurrentIndex(am_pm)
 
-        else:
+        elif position=="EndTime":
             self.right_hours_box = QComboBox(self)
             self.right_hours_box.setFixedSize(60, 60)
             self.right_hours_box.setFont(time_font)
@@ -155,6 +162,12 @@ class MainMenu(QWidget):
                 self.right_hours_box.setCurrentIndex(hours - 1)
                 self.right_minutes_box.setCurrentIndex(minutes)
                 self.right_am_pm_box.setCurrentIndex(am_pm)
+        else:
+            self.class_start_minutes_box = QComboBox(self)
+            self.class_start_minutes_box.setFixedSize(60, 60)
+            self.class_start_minutes_box.setFont(time_font)
+            self.set_time(self.class_start_minutes_box, 0, 60)
+            self.class_start_minutes_box.move(mbx, y)
 
     def set_time(self, combobox, start, stop):
         for i in range(start, stop):
@@ -188,18 +201,21 @@ class MainMenu(QWidget):
             endHour = int(self.right_hours_box.currentText())
             endMin = int(self.right_minutes_box.currentText())
 
+        extra_time = int(self.class_start_minutes_box.currentText()) * 60
+
         startTime=(startHour-int(time.localtime()[3]))*3600+ (startMin-1-int(time.localtime()[4]))*60+(59-int(time.localtime()[5])) # do math to get the time to start in contrast to real time (base on button clicked)
         if startTime<0: #if the prof want to start immediately
-            timeFrame = (endHour - startHour) * 3600 + (endMin - startMin - 1) * 60 + (59 - int(time.localtime()[5]))-1 # second will be in 0 position based on his time to click the button
+            timeFrame = (endHour - startHour) * 3600 + (endMin - startMin - 1) * 60 + (59 - int(time.localtime()[5]))-1# second will be in 0 position based on his time to click the button
         else: #if the prof want to wait
             timeFrame = (endHour - startHour) * 3600 + (endMin - startMin)*60-1 #since the waiting time counts to 0 sec, the timeframe only need to keep track of min and hour
+
         if timeFrame<0:
             QMessageBox.question(self, 'Student Attendance Service', "Please select an end time greater than starting time", QMessageBox.Ok)
         elif startHour<time.localtime()[3] or startMin<time.localtime()[4]:
             QMessageBox.question(self, 'Student Attendance Service',"Please select an end time greater than equal to current time", QMessageBox.Ok)
         else:
             print(timeFrame)
-            self.menu = Student_Login.StudentLogin(startTime, timeFrame, self.file_name, self.file_extension, self.studentList)
+            self.menu = Student_Login.StudentLogin(startTime, timeFrame, self.file_name, self.file_extension, self.studentList, extra_time)
             self.menu.show()
             self.close()
 

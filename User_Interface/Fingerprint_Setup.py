@@ -14,11 +14,12 @@ import csv
 
 
 class FingerprintSetup:
-    def __init__(self, student, students, file_name, file_extension):
+    def __init__(self, student, students, file_name, file_extension,currentTimeStatus):
         self.students = students
         self.student = student
         self.file_name = file_name
         self.file_extension = file_extension
+        self.currentTimeStatus=currentTimeStatus
 
         self.register_fp()
 
@@ -43,7 +44,7 @@ class FingerprintSetup:
                                                                     icon=QMessageBox.Warning)
             else:
                 self.student.setFingerprintIndex(index)
-                self.student.setAttendance("Present")
+                self.student.setAttendance(self.currentTimeStatus)
                 Custom_Message_Box.CustomMessageBox.showWithTimeout(2, "ACCEPTED: Your fingerprint was registered!",
                                                                     "Success:",
                                                                     icon=QMessageBox.Information)
@@ -73,7 +74,7 @@ class FingerprintSetup:
 
                 if index == int(fp_id):
 
-                    self.student.setAttendance("Present")
+                    self.student.setAttendance(self.currentTimeStatus)
                     time.sleep(1)
                     Custom_Message_Box.CustomMessageBox.showWithTimeout(1, "SUCCESS: Print was recognized!",
                                                                         "Accepted:",
