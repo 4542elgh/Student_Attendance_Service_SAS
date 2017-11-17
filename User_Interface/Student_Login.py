@@ -1,5 +1,5 @@
 import sys
-import threading
+import re
 import datetime
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QProgressBar, QStyleFactory,QMessageBox
 from PyQt5.QtCore import QTimer, Qt
@@ -41,19 +41,15 @@ class StudentLogin(QWidget):
         self.label_logo.resize(400, 400)
         self.label_logo.move(400, 60)
 
-
-
         font = QFont()
-        font.setFamily("FreeMono")
         font.setPointSize(24)
 
         self.label = QLabel(self)
         self.label.resize(1200, 40)
-        self.label.move(100, 75)
+        self.label.move(10, 10)
         self.label.setFont(font)
 
         swipe_font = QFont()
-        swipe_font.setFamily("FreeMono")
         swipe_font.setPointSize(14)
 
         swipe_label = QLabel("Please swipe your Student ID:", self)
@@ -82,8 +78,12 @@ class StudentLogin(QWidget):
         self.timer.start(1000)
 
     def count_down_to_End(self):
+        name = self.file_path
+        name = name.rsplit('/', 1)[-1]
+        name = name.split('.')[0]
+
         if self.count < 1 and self.extra_time < 1:
-            QMessageBox.question(self, 'Student Attendance Service',"Attendance for xxx class has ended", QMessageBox.Ok)
+            QMessageBox.question(self, 'Student Attendance Service',"Attendance has for class: " + name + " ended!", QMessageBox.Ok)
             self.summary=Attendance_For_The_Day.Attendance_For_The_Day(self.file_path,self.studentList)
             self.summary.show()
             self.close()

@@ -48,8 +48,8 @@ class MainMenu(QWidget):
 
         self.time_box(275, 337.5, 355, 430, 100, True,"EndTime")
 
-        end_label = QLabel("Class Start:", self)
-        end_label.move(155, 150)
+        end_label = QLabel("Time Extension:", self)
+        end_label.move(125, 175)
 
         self.time_box(155, 217.5, 235, 310, 170, True, "classStart")
 
